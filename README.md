@@ -2,10 +2,10 @@
 TP1 de Engenharia de Software
 
 ## Grupo:
-Augusto Maillo Queiroga de Figueiredo - 2019006450
-Eduardo Augusto Militão Fernandes - 2019006540
-Pedro Dias Pires - 2019007040
-Arthur de Brito Bonifácio - 2019006370
+- Augusto Maillo Queiroga de Figueiredo - 2019006450
+- Eduardo Augusto Militão Fernandes - 2019006540
+- Pedro Dias Pires - 2019007040
+- Arthur de Brito Bonifácio - 2019006370
 
 ## Proposta:
 Sistema digital para feedback das disciplinas ofertadas pelo DCC-UFMG.
