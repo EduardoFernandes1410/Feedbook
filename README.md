@@ -36,34 +36,33 @@ Sistema digital para feedback das disciplinas ofertadas pelo DCC-UFMG.
   - Criar tabela de usuários no BD [Augusto]
   - Implementar driver do banco de dados para tabela de usuários [Pedro]
   - Implementar camada de controle do back-end para login e cadastro [Augusto]
-  - Implementar página de cadastro [Arthur]
-  - Implementar página de login [Arthur]
-  - Implementar camada de controle do front-end [Eduardo]
+  - Implementar página de cadastro [Eduardo]
+  - Implementar página de login [Eduardo]
+  - Implementar camada de controle do front-end [Arthur]
 
 - Como usuário, gostaria de poder alterar detalhes da minha conta como nome ou senha
-  - Implementar página de configuração [Arthur]
+  - Implementar página de configuração [Eduardo]
   - Implementar um controlador para alteração de dados do usuário [Pedro]
-  - Implementar camada de controle do front-end [Eduardo]
+  - Implementar camada de controle do front-end [Arthur]
 
 - Como usuário, eu gostaria de avaliar uma disciplina
   - Criar tabela de avaliações, de matérias e de professores [Augusto]
   - Implementar driver do banco de dados [Pedro]
   - Implementar camada de controle do back-end [Augusto]
-  - Implementar página de avaliação [Arthur]
-  - Implementar camada de controle do front-end [Eduardo]
+  - Implementar página de avaliação [Eduardo]
+  - Implementar camada de controle do front-end [Arthur]
 
 - Como usuário, eu gostaria de ver a lista de todas as disciplinas, ordenado por algum critério
   - Implementar camada de controle do back-end [Augusto]
-  - Implementar página de feed de matérias [Arthur]
-  - Implementar camada de controle do front-end [Eduardo]
+  - Implementar página de feed de matérias [Eduardo]
+  - Implementar camada de controle do front-end [Arthur]
 
 - Como usuário, eu gostaria de ver todas as avaliações de uma disciplina
   - Implementar camada de controle do back-end [Pedro]
-  - Implementar página de avaliações de uma disciplina [Arthur]
-  - Implementar camada de controle do front-end [Eduardo]
-
+  - Implementar página de avaliações de uma disciplina [Eduardo]
+  - Implementar camada de controle do front-end [Arthur]
 
 - Como usuário, eu gostaria de dar upvote/downvote em alguma avaliação
   - Implementar camada de controle do back-end [Pedro]
-  - Implementar botão de upvote/downvote [Arthur]
-  - Implementar camada de controle do front-end [Eduardo]
+  - Implementar botão de upvote/downvote [Eduardo]
+  - Implementar camada de controle do front-end [Arthur]
