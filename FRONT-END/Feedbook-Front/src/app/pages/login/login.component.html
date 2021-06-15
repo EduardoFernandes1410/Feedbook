@@ -1,34 +1,51 @@
-<div class="columns">
-  <div class="column is-one-fifth is-offset-two-fifths">
-    Bem vindo ao Feedbook!
+<section class="hero is-fullheight">
+  <div class="hero-body">
+    <div class="columns is-vcentered">
+      <section class="hero is-fullheight is-hidden-mobile">
+        <div class="hero-body fill">
+          <img src="../../assets/login/bg.jpg">
+        </div>
+      </section>
 
-    <!-- Login form -->
-    <div class="field">
-      <label class="label">Email</label>
-      <div class="control has-icons-left">
-        <input class="input" type="email" placeholder="ex: joao@ufmg.br">
-        <span class="icon is-small is-left">
-          <i class="fas fa-envelope"></i>
-        </span>
-      </div>
-    </div>
+      <!-- Login Form -->
+      <div class="column is-two-fifths login-form">
+        <h1 class="title is-1">Bem vindo ao Feedbook!</h1>
 
-    <div class="field">
-      <label class="label">Senha</label>
-      <div class="control has-icons-left">
-        <input class="input" type="password" placeholder="Senha">
-        <span class="icon is-small is-left">
-          <i class="fas fa-lock"></i>
-        </span>
+        <p class="subtitle is-5">
+          <strong>
+            Ainda não é cadastrado? Clique <a>aqui</a>
+          </strong>
+        </p>
+
+        <!-- Login form -->
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control has-icons-left">
+            <input class="input" type="email" placeholder="ex: joao@ufmg.br">
+            <span class="icon is-small is-left">
+              <i class="fas fa-envelope"></i>
+            </span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Senha</label>
+          <div class="control has-icons-left">
+            <input class="input" type="password" placeholder="Senha">
+            <span class="icon is-small is-left">
+              <i class="fas fa-lock"></i>
+            </span>
+          </div>
+        </div>
+        
+        <div class="field">
+          <p class="control">
+            <button class="button is-info">
+              Login
+            </button>
+          </p>
+        </div>
       </div>
-    </div>
-    
-    <div class="field">
-      <p class="control">
-        <button class="button is-success">
-          Login
-        </button>
-      </p>
     </div>
   </div>
-</div>
+</section>
