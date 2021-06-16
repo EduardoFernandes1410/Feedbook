@@ -7,7 +7,8 @@
         </div>
       </section>
 
-      <div class="column is-two-fifths login-form">
+      <!-- Login Form -->
+      <div class="column is-two-fifths login-form" [formGroup]="loginForm">
         <h1 class="title is-1">Bem vindo ao Feedbook!</h1>
 
         <p class="subtitle is-5">
@@ -20,7 +21,7 @@
         <div class="field">
           <label class="label">Email</label>
           <div class="control has-icons-left">
-            <input class="input" type="email" placeholder="ex: joao@ufmg.br">
+            <input [ngClass]="{'has-error': (email?.dirty || email?.touched) && (email?.errors?.required || email?.errors?.pattern)}" formControlName="email" class="input" type="email" placeholder="ex: joao@ufmg.br">
             <span class="icon is-small is-left">
               <i class="fas fa-envelope"></i>
             </span>
@@ -30,16 +31,17 @@
         <div class="field">
           <label class="label">Senha</label>
           <div class="control has-icons-left">
-            <input class="input" type="password" placeholder="Senha">
+            <input [ngClass]="{'has-error': (password?.dirty || password?.touched) && password?.errors?.required}" formControlName="password" class="input" type="password" placeholder="Senha">
             <span class="icon is-small is-left">
               <i class="fas fa-lock"></i>
             </span>
           </div>
         </div>
-        
+
         <div class="field">
           <p class="control">
-            <button class="button is-info" routerLink="../feed" routerLinkActive="active">
+            <!-- <button class="button is-info" routerLink="../feed" routerLinkActive="active" (click)="login()"> -->
+            <button class="button is-info" (click)="login()">
               Login
             </button>
           </p>
