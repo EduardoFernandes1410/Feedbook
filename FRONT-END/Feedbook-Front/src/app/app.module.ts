@@ -1,11 +1,34 @@
+import { TokenInterceptor } from './services/interceptors/token.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { FeedComponent } from './pages/feed/feed.component';
+import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
+
+import { localStorageSync } from 'ngrx-store-localstorage';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from './services/auth/auth.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { reducers } from './stores/reducers';
+import { effects } from './stores/effects';
+import { EffectsModule } from '@ngrx/effects';
+
+export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
+  return localStorageSync({
+    keys: [
+      { auth: ['loggedUser'] },
+    ],
+    rehydrate: true,
+  })(reducer);
+}
+// tslint:disable-next-line: prefer-array-literal
+const metaReducers: Array<MetaReducer<any, any>> = [
+  localStorageSyncReducer,
+];
 
 @NgModule({
   declarations: [
@@ -16,9 +39,22 @@ import { FeedComponent } from './pages/feed/feed.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    StoreModule.forRoot(reducers, { metaReducers }),
+    EffectsModule.forRoot(effects),
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
