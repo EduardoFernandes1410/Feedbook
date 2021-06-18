@@ -173,12 +173,12 @@ class DatabaseController{
         "columnName: newValue" format, on the specified table. 
    */
    async updateEntry(table, idColumnName, idValue, newValues){
-        let query = `UPDATE ${this.connection.escape(table)} SET `;
-        for(const column of newValues){
-            query += `${this.connection.escape(column)}=${this.connection.escape(newValues[column])},`
+        let query = `UPDATE ${this.connection.escapeId(table)} SET `;
+        for(const column in newValues){
+            query += `${this.connection.escapeId(column)}=${this.connection.escape(newValues[column])},`
         }
-        query[query.length - 1] = ' ';
-        query += `WHERE ${this.connection.escape(idColumnName)}=${this.connection.escape(idValue)};`;
+        query = query.replace(/.$/, ' ');
+        query += `WHERE ${this.connection.escapeId(idColumnName)}=${this.connection.escape(idValue)};`;
         return await this.query(query);
     }
 
@@ -194,12 +194,12 @@ class DatabaseController{
     async query(sqlQuery, inputData = []){
         try{
             const [rows, fields] = await this.connection.query(sqlQuery, inputData);
+            return rows;
         }catch(error){
             console.error(`The execution of the query "${sqlQuery}" failed!`);
             console.error("The database server returned an error: ", error);
             throw error;
         }
-        return rows;
     }
 };
 
