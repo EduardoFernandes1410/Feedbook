@@ -16,6 +16,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { reducers } from './stores/reducers';
 import { effects } from './stores/effects';
 import { EffectsModule } from '@ngrx/effects';
+import { CourseCardComponent } from './components/course-card/course-card.component';
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
@@ -35,7 +36,8 @@ const metaReducers: Array<MetaReducer<any, any>> = [
     AppComponent,
     LoginComponent,
     RegistrationComponent,
-    FeedComponent
+    FeedComponent,
+    CourseCardComponent
   ],
   imports: [
     BrowserModule,
