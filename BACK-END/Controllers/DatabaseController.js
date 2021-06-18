@@ -85,19 +85,25 @@ class DatabaseController{
         name is given, limiting to the columns given (as a comma separated list of 
         names) and filtering by the given condition (expressed as a string).
         If no columns specified, returns all columns and if no condition specified,
-        returns all data. The given parameters are also internally escaped to 
-        prevent SQL Injection, so no pre-escaping is needed.
+        returns all data. The table and columns parameters are escaped,
+        but the CONDITION IS NOT ESCAPED, so pre-escaping is needed in this case.
     */
    async select(table, columns = '', condition = ''){
         let query = 'SELECT ';
         if(columns !== ''){
-            query += this.connection.escape(columns) + ' ';
+            const columnList = columns.split(',');
+            let escapedColumns = '';
+            for(let i = 0; i < columnList.length - 1; i++){
+                escapedColumns += `${mysql.escapeId(columnList[i])},`;
+            }
+            escapedColumns += mysql.escapeId(columnList[columnList.length - 1]);
+            query += escapedColumns + ' ';
         }else{
             query += '* ';
         }
-        query += `FROM ${this.connection.escape(table)}`;
+        query += `FROM ${this.connection.escapeId(table)}`;
         if(condition !== ''){
-            query += ` WHERE ${this.connection.escape(condition)};`;
+            query += ` WHERE ${condition};`;
         }else{
             query += ';';
         }
@@ -112,9 +118,15 @@ class DatabaseController{
         order.
    */
    async insert(table, values, fields = ''){
-        let query = `INSERT INTO ${this.connection.escape(table)} `;
+        let query = `INSERT INTO ${this.connection.escapeId(table)} `;
         if(fields !== ''){
-            query += `(${this.connection.escape(fields)}) VALUE`;
+            const fieldList = fields.split(',');
+            let escapedFields = '';
+            for(let i = 0; i < fieldList.length - 1; i++){
+                escapedFields += `${this.connection.escapeId(fieldList[i])},`;
+            }
+            escapedFields += this.connection.escapeId(fieldList[fieldList.length-1]);
+            query += `(${escapedFields}) VALUE`;
         }else{
             query += 'VALUE';
         }
@@ -153,7 +165,7 @@ class DatabaseController{
 
    // Deletes the entry whose id's value and column name are specified from the specified table
    async deleteEntry(table, idColumnName, idValue){
-       return await this.query('DELETE FROM ? WHERE ?=?',[table,idColumnName,idValue]);
+       return await this.query('DELETE FROM ?? WHERE ??=?',[table,idColumnName,idValue]);
    }
    /*
         Updates the entry whose id's value and column name are specified with 
@@ -174,7 +186,8 @@ class DatabaseController{
         Executes the given SQL query string on the database with the
         given input data. The input data is used to replace placeholders
         on the query string, on the same order that they are given.
-        A placeholder is represented by a "?" character. The results,
+        A placeholder is represented by a "?", if it represents data, 
+        or by "??", if it represents a identifier. The results,
         if any, are returned as an array of .json objects representing 
         each entry returned.
     */ 
