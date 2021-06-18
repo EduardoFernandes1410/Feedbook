@@ -1,37 +1,72 @@
-<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item">
-      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
-    </a>
-  </div>
+<body class="has-navbar-fixed-top">
+  <!-- Navbar -->
+  <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item">
+        <h1 class="title is-3">Feedbook</h1>
+      </a>
 
-  <div class="navbar-menu is-active">
-    <div class="navbar-start">
-      <div class="navbar-item is-expanded">
-        <div class="control has-icons-left">
-            <input class="input" type="text" placeholder="Busque uma matéria">
-            <span class="icon is-small is-left">
-              <i class="fas fa-search"></i>
-            </span>
-          </div>
-      </div>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
     </div>
 
-    <div class="navbar-end">
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          <img class="user-img" src="/assets/feed/user.png" width="28" height="28">
-          Albert Einstein
-        </a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item">
-            Configurações
-          </a>
-          <a class="navbar-item">
-            Sair
-          </a>
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <div id="search-box-container" class="navbar-item is-expanded">
+          <div class="control has-icons-left">
+              <input id="search-box" class="input" type="text" placeholder="Busque uma matéria">
+              <span class="icon is-small is-left">
+                <i class="fas fa-search"></i>
+              </span>
+            </div>
+        </div>
+      </div>
+
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <span class="icon-text">
+            <span class="icon">
+              <i class="fas fa-user"></i>
+            </span>
+            <span>Alan Turing</span>
+          </span>
+        </div>
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-light">
+              <strong>Configurações</strong>
+            </a>
+            <a class="button is-danger">
+              Sair
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <div id="content-container">
+    <!-- Sort-by selector -->
+    <div class="field">
+      <label class="label">Ordenar por:</label>
+      <div class="control has-icons-left">
+        <div class="select">
+          <select>
+            <option selected>Média geral</option>
+            <option>Tempo de dedicação</option>
+            <option>Qualidade do material</option>
+            <option>Avaliação do docente</option>
+            <option>Cobrança nas provas</option>
+          </select>
+        </div>
+        <div class="icon is-small is-left">
+          <i class="fas fa-sort-amount-up"></i>
         </div>
       </div>
     </div>
   </div>
-</nav>
+</body>
