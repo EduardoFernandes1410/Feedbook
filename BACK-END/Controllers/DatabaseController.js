@@ -79,6 +79,115 @@ class DatabaseController{
             }
         }
     }
+
+    /*
+        Shortcut to a select query. Retrieves data from the table whose 
+        name is given, limiting to the columns given (as a comma separated list of 
+        names) and filtering by the given condition (expressed as a string).
+        If no columns specified, returns all columns and if no condition specified,
+        returns all data. The given parameters are also internally escaped to 
+        prevent SQL Injection, so no pre-escaping is needed.
+    */
+   async select(table, columns = '', condition = ''){
+        let query = 'SELECT ';
+        if(columns !== ''){
+            query += this.connection.escape(columns) + ' ';
+        }else{
+            query += '* ';
+        }
+        query += `FROM ${this.connection.escape(table)}`;
+        if(condition !== ''){
+            query += ` WHERE ${this.connection.escape(condition)};`;
+        }else{
+            query += ';';
+        }
+        return await this.query(query);
+   }
+
+   /*
+        Shortcut to a INSERT query. Adds the values of a given array
+        (with one or two dimensions) with the new entry's data to 
+        the specified table on the given fields. If no fields given, 
+        adds the data on all table columns, following the table's column 
+        order.
+   */
+   async insert(table, values, fields = ''){
+        let query = `INSERT INTO ${this.connection.escape(table)} `;
+        if(fields !== ''){
+            query += `(${this.connection.escape(fields)}) VALUE`;
+        }else{
+            query += 'VALUE';
+        }
+        let columns;
+        if(!Array.isArray(values)){
+            console.error("A malformed input was given to the insert query!");
+            console.error(`Data of type ${typeof(values)} received instead of the expected Array!`);
+            throw new Error("Invalid input given to the insert query!");
+        }
+        if(Array.isArray(values[0])){
+            query += 'S ';
+            columns = values[0].length;
+            for(const value of values){
+                if(!Array.isArray(value) || value.length !== columns){
+                    console.error("A malformed input was given to the insert query!");
+                    console.error(`Entries of ${columns} columns expected, but an entry of ${value.length} columns encountered!`);
+                    throw new Error("Invalid input given to the insert query!");
+                }
+                query += '(';
+                for(let i = 0; i < columns - 1; i++){
+                    query += `${this.connection.escape(value[i])},`;
+                }
+                query += `${this.connection.escape(value[columns-1])}),`;
+            } 
+            query[query.length - 1] = ';';
+        }else{
+            query += ' (';
+            columns = values.length;
+            for(let i = 0; i < columns - 1; i++){
+                query += `${this.connection.escape(values[i])},`;
+            }
+            query += `${this.connection.escape(values[columns-1])});`;
+        }
+        return await this.query(query);
+   }
+
+   // Deletes the entry whose id's value and column name are specified from the specified table
+   async deleteEntry(table, idColumnName, idValue){
+       return await this.query('DELETE FROM ? WHERE ?=?',[table,idColumnName,idValue]);
+   }
+   /*
+        Updates the entry whose id's value and column name are specified with 
+        the new values that are given as a object following the 
+        "columnName: newValue" format, on the specified table. 
+   */
+   async updateEntry(table, idColumnName, idValue, newValues){
+        let query = `UPDATE ${this.connection.escape(table)} SET `;
+        for(const column of newValues){
+            query += `${this.connection.escape(column)}=${this.connection.escape(newValues[column])},`
+        }
+        query[query.length - 1] = ' ';
+        query += `WHERE ${this.connection.escape(idColumnName)}=${this.connection.escape(idValue)};`;
+        return await this.query(query);
+    }
+
+    /*
+        Executes the given SQL query string on the database with the
+        given input data. The input data is used to replace placeholders
+        on the query string, on the same order that they are given.
+        A placeholder is represented by a "?" character. The results,
+        if any, are returned as an array of .json objects representing 
+        each entry returned.
+    */ 
+    async query(sqlQuery, inputData = []){
+        try{
+            const [rows, fields] = await this.connection.query(sqlQuery, inputData);
+        }catch(error){
+            console.error(`The execution of the query "${sqlQuery}" failed!`);
+            console.error("The database server returned an error: ", error);
+            throw error;
+        }
+        return rows;
+    }
 };
 
 module.exports = DatabaseController;
