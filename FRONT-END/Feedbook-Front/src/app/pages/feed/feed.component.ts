@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./feed.component.scss']
 })
 export class FeedComponent implements OnInit {
+  public menuVisible: bool;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor() {
   }
 
+  public toggleMenu(): void {
+    this.menuVisible = !this.menuVisible;
+  }
+
+  ngOnInit() {
+    this.menuVisible = false;
+  }
 }
