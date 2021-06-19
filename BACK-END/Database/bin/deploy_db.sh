@@ -1,2 +1,2 @@
-mysql -u root -p < exec.sql
+mysql -u root -p < data/exec.sql
 echo "DataBase Configured." 
