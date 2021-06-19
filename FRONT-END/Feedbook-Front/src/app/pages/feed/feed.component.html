@@ -51,8 +51,8 @@
   <!-- Content -->
   <div id="content-container">
     <!-- Sort-by selector -->
-    <div class="field">
-      <label class="label">Ordenar por:</label>
+    <div class="field is-horizontal">
+      <label class="field-label label">Ordenar por:</label>
       <div class="control has-icons-left">
         <div class="select">
           <select>
@@ -60,13 +60,22 @@
             <option>Tempo de dedicação</option>
             <option>Qualidade do material</option>
             <option>Avaliação do docente</option>
-            <option>Cobrança nas provas</option>
+            <option>Complexidade do conteúdo</option>
           </select>
         </div>
         <div class="icon is-small is-left">
           <i class="fas fa-sort-amount-up"></i>
         </div>
       </div>
+    </div>
+
+    <!-- Course cards -->
+    <div class="columns is-multiline">
+      <div class="column is-half"><app-course-card></app-course-card></div>
+      <div class="column is-half"><app-course-card></app-course-card></div>
+      <div class="column is-half"><app-course-card></app-course-card></div>
+      <div class="column is-half"><app-course-card></app-course-card></div>
+      <div class="column is-half"><app-course-card></app-course-card></div>
     </div>
   </div>
 </body>
