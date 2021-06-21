@@ -40,7 +40,7 @@
             <span class="icon is-small is-left">
               <i class="fas fa-envelope"></i>
             </span>
-          </div>
+          </div><p class="has-text-danger" *ngIf="email?.errors?.pattern">Email cadastrado deve ser da UFMG</p>
         </div>
 
         <div class="field">
