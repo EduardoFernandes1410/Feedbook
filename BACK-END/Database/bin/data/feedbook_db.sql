@@ -113,8 +113,9 @@ DROP TABLE IF EXISTS `user_tb`;
 CREATE TABLE `user_tb` (
   `user_id` int NOT NULL AUTO_INCREMENT,
   `user_email` varchar(45) NOT NULL,
-  `user_pwd` varchar(45) NOT NULL,
-  `user_name` varchar(60) NOT NULL,
+  `user_pwd` varchar(64) NOT NULL,
+  `user_name` varchar(24) NOT NULL,
+  `user_surname` varchar(64) NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_email_UNIQUE` (`user_email`),
   UNIQUE KEY `user_id_UNIQUE` (`user_id`)
