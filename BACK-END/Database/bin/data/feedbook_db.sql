@@ -18,25 +18,27 @@ USE `feedbook_db`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `avaliation_tb`
+-- Table structure for table `evaluation_tb`
 --
 
-DROP TABLE IF EXISTS `avaliation_tb`;
+DROP TABLE IF EXISTS `evaluation_tb`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `avaliation_tb` (
-  `avaliation_id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `evaluation_tb` (
+  `evaluation_id` int NOT NULL AUTO_INCREMENT,
   `subject_id` varchar(48) NOT NULL,
-  `avaliation_owner` varchar(45) NOT NULL,
-  `avaliation_dedication_time` double unsigned NOT NULL,
-  `avaliation_material_quality` double unsigned NOT NULL,
-  `avaliation_professor_avaliation` double unsigned NOT NULL,
-  `avaliation_content_complexity` double unsigned NOT NULL,
-  `avaliation_desc` varchar(512) DEFAULT NULL,
-  PRIMARY KEY (`avaliation_id`),
-  UNIQUE KEY `avaliation_id_UNIQUE` (`avaliation_id`),
-  KEY `fk_avaliation_tb_1_idx` (`subject_id`),
-  CONSTRAINT `fk_avaliation_tb_1` FOREIGN KEY (`subject_id`) REFERENCES `subject_tb` (`subject_id`)
+  `evaluation_owner` varchar(45) NOT NULL,
+  `evaluation_dedication_time` double unsigned NOT NULL,
+  `evaluation_material_quality` double unsigned NOT NULL,
+  `evaluation_professor_evaluation` double unsigned NOT NULL,
+  `evaluation_content_complexity` double unsigned NOT NULL,
+  `evaluation_upvote_count` double unsigned NOT NULL,
+  `evaluation_downvote_count` double unsigned NOT NULL,
+  `evaluation_desc` varchar(512) DEFAULT NULL,
+  PRIMARY KEY (`evaluation_id`),
+  UNIQUE KEY `evaluation_id_UNIQUE` (`evaluation_id`),
+  KEY `fk_evaluation_tb_1_idx` (`subject_id`),
+  CONSTRAINT `fk_evaluation_tb_1` FOREIGN KEY (`subject_id`) REFERENCES `subject_tb` (`subject_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -70,11 +72,13 @@ CREATE TABLE `subject_tb` (
   `professor_id` varchar(48) NOT NULL,
   `mean_dedication_time` double unsigned NOT NULL DEFAULT '0',
   `mean_material_quality` double unsigned NOT NULL DEFAULT '0',
-  `mean_professor_avaliation` double unsigned NOT NULL DEFAULT '0',
+  `mean_professor_evaluation` double unsigned NOT NULL DEFAULT '0',
   `mean_content_complexity` double unsigned NOT NULL DEFAULT '0',
+  `mean_general` double unsigned NOT NULL DEFAULT '0',
   `subject_cod` varchar(48) DEFAULT NULL,
   `subject_name` varchar(96) NOT NULL,
-  `avaliations_count` int unsigned DEFAULT '0',
+  `evaluations_count` int unsigned DEFAULT '0',
+  `search_field` varchar(144) NOT NULL,
   PRIMARY KEY (`subject_id`),
   UNIQUE KEY `subject_id_UNIQUE` (`subject_id`),
   KEY `fk_subject_tb_1_idx` (`professor_id`),
@@ -116,6 +120,24 @@ CREATE TABLE `user_tb` (
   UNIQUE KEY `user_id_UNIQUE` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `user_votes_tb`
+--
+
+DROP TABLE IF EXISTS `user_votes_tb`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user_votes_tb` (
+  `user_id` int NOT NULL,
+  `evualiation_id` int NOT NULL,
+  `vote_type` tinyint DEFAULT NULL,
+  PRIMARY KEY (`user_id`,`evualiation_id`),
+  KEY `fk_user_votes_tb_2_idx` (`evualiation_id`),
+  CONSTRAINT `fk_user_votes_tb_1` FOREIGN KEY (`user_id`) REFERENCES `user_tb` (`user_id`),
+  CONSTRAINT `fk_user_votes_tb_2` FOREIGN KEY (`evualiation_id`) REFERENCES `evaluation_tb` (`evaluation_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -126,4 +148,4 @@ CREATE TABLE `user_tb` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-20 12:54:20
+-- Dump completed on 2021-06-22 14:28:20

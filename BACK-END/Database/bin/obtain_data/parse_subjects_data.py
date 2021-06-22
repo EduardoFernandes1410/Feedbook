@@ -1,6 +1,7 @@
 import pandas as pd
 from professor_name_dict import professor_name
 from hashlib import md5
+from unidecode import unidecode
 
 FILE = "raw_data/OfertaDeDisciplinas_DCC_20212.csv"
 
@@ -14,8 +15,9 @@ def generate_line(cod, desc, prof):
     profid = ('"%s"'%md5(prof.encode()).hexdigest()) 
     desc = '"%s"' % desc
     cod = '"%s"' % cod
-
-    return "INSERT INTO subject_tb(subject_id, professor_id, subject_name, subject_cod) VALUES(%s, %s, %s, %s);\n" % (subid, profid, desc, cod)
+    search = cod[:-1] + ' ' + desc[1:]
+    search = unidecode(search).upper()
+    return "INSERT INTO subject_tb(subject_id, professor_id, subject_name, subject_cod, search_field) VALUES(%s, %s, %s, %s, %s);\n" % (subid, profid, desc, cod, search)
 
 lines = ["USE feedbook_db;\n"]
 for i,e in df.iterrows():
