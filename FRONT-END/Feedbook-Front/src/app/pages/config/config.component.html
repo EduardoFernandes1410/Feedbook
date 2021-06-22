@@ -1,1 +1,107 @@
-<p>config works!</p>
+<!-- Navbar -->
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" routerLink="../feed" routerLinkActive="active">
+      <h1 class="title is-3">Feedbook</h1>
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" (click)="toggleMenu()">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div class="navbar-menu" [ngClass]="{'is-active': menuVisible}">
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <span class="icon-text">
+          <span class="icon">
+            <i class="fas fa-user"></i>
+          </span>
+          <span>Alan Turing</span>
+        </span>
+      </div>
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-danger">
+            Sair
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div id="config-form">
+  <div class="columns">
+    <div class="column is-4 is-offset-4">
+      <span class="icon-text" id="title">
+        <span class="icon has-text-dark">
+          <i class="fas fa-lg fa-cog"></i>
+        </span>
+        <span>
+          <h1 class="title is-4">Configurações</h1>
+        </span>
+      </span>
+      
+
+      <!-- Registration Form -->
+      <label class="label">Nome</label>
+      <div class="field is-grouped">
+        <div class="control is-expanded has-icons-left">
+          <input [ngClass]="{'has-error': (name?.dirty || name?.touched) && name?.errors?.required}" formControlName="name" class="input" type="text" placeholder="Nome">
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+        </div>
+        <div class="control is-expanded has-icons-left">
+          <input [ngClass]="{'has-error': (surname?.dirty || surname?.touched) && surname?.errors?.required}" formControlName="surname" class="input" type="text" placeholder="Sobrenome">
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control has-icons-left">
+          <input [ngClass]="{'has-error': (email?.dirty || email?.touched) && (email?.errors?.required || email?.errors?.pattern)}" formControlName="email" class="input" type="email" placeholder="ex: joao@ufmg.br">
+          <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+        </div><p class="has-text-danger" *ngIf="email?.errors?.pattern">Email cadastrado deve ser da UFMG</p>
+      </div>
+
+      <div class="field">
+        <label class="label">Nova senha</label>
+        <div class="control has-icons-left">
+          <input [ngClass]="{'has-error': (password?.dirty || password?.touched) && password?.errors?.required}" formControlName="password" class="input" type="password" placeholder="Senha">
+          <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Confirme a nova senha</label>
+        <div class="control has-icons-left">
+          <input [ngClass]="{'has-error': (passwordConfirmation?.dirty || passwordConfirmation?.touched) && (passwordConfirmation?.errors?.required || passwordConfirmation?.errors?.mustMatch )}" formControlName="passwordConfirmation" class="input" type="password" placeholder="Senha">
+          <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </div>
+        <p class="has-text-danger" *ngIf="passwordConfirmation?.errors?.mustMatch">As senhas não conferem</p>
+      </div>
+
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-info">Salvar</button>
+        </div>
+        <div class="control">
+          <button class="button is-light" routerLink="../feed" routerLinkActive="active">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
