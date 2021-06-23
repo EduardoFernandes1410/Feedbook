@@ -32,6 +32,7 @@ CREATE TABLE `evaluation_tb` (
   `evaluation_material_quality` double unsigned NOT NULL,
   `evaluation_professor_evaluation` double unsigned NOT NULL,
   `evaluation_content_complexity` double unsigned NOT NULL,
+  `general_evaluation` double unsigned NOT NULL,
   `evaluation_upvote_count` double unsigned NOT NULL,
   `evaluation_downvote_count` double unsigned NOT NULL,
   `evaluation_desc` varchar(512) DEFAULT NULL,
@@ -131,12 +132,12 @@ DROP TABLE IF EXISTS `user_votes_tb`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_votes_tb` (
   `user_id` int NOT NULL,
-  `evualiation_id` int NOT NULL,
+  `evaluation_id` int NOT NULL,
   `vote_type` tinyint DEFAULT NULL,
-  PRIMARY KEY (`user_id`,`evualiation_id`),
-  KEY `fk_user_votes_tb_2_idx` (`evualiation_id`),
+  PRIMARY KEY (`user_id`,`evaluation_id`),
+  KEY `fk_user_votes_tb_2_idx` (`evaluation_id`),
   CONSTRAINT `fk_user_votes_tb_1` FOREIGN KEY (`user_id`) REFERENCES `user_tb` (`user_id`),
-  CONSTRAINT `fk_user_votes_tb_2` FOREIGN KEY (`evualiation_id`) REFERENCES `evaluation_tb` (`evaluation_id`)
+  CONSTRAINT `fk_user_votes_tb_2` FOREIGN KEY (`evaluation_id`) REFERENCES `evaluation_tb` (`evaluation_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
