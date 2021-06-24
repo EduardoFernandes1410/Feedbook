@@ -18,6 +18,7 @@ import { effects } from './stores/effects';
 import { EffectsModule } from '@ngrx/effects';
 import { CourseCardComponent } from './components/course-card/course-card.component';
 import { ConfigComponent } from './pages/config/config.component';
+import { FbNavBarComponent } from './components/fb-nav-bar/fb-nav-bar.component';
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
@@ -39,7 +40,8 @@ const metaReducers: Array<MetaReducer<any, any>> = [
     RegistrationComponent,
     FeedComponent,
     CourseCardComponent,
-    ConfigComponent
+    ConfigComponent,
+    FbNavBarComponent
   ],
   imports: [
     BrowserModule,

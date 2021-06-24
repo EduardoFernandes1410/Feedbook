@@ -1,0 +1,48 @@
+<!-- Navbar -->
+<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" routerLink="../feed" routerLinkActive="active">
+      <h1 class="title is-3">Feedbook</h1>
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" (click)="toggleMenu()">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div class="navbar-menu" [ngClass]="{'is-active': menuVisible}">
+    <div *ngIf='searchBox' class="navbar-start">
+      <div id="search-box-container" class="navbar-item is-expanded">
+        <div class="control has-icons-left">
+          <input id="search-box" class="input" type="text" placeholder="Busque uma matéria">
+          <span class="icon is-small is-left">
+            <i class="fas fa-search"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <span class="icon-text">
+          <span class="icon">
+            <i class="fas fa-user"></i>
+          </span>
+          <span>Alan Turing</span>
+        </span>
+      </div>
+      <div class="navbar-item">
+        <div class="buttons">
+          <a *ngIf='searchBox' class="button is-light" routerLink="../config" routerLinkActive="active">
+            <strong>Configurações</strong>
+          </a>
+          <a class="button is-danger">
+            Sair
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
