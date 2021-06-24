@@ -1,7 +1,8 @@
 const User = require("../Models/User.js");
 const Evaluation = require("../Models/Evaluation.js");
 
-const LOGIN_ERROR_MSG = "Wrong username or password provided!";
+const LOGIN_ERROR_MSG = "Wrong username or password provided.";
+const REGISTER_ERROR_MSG = "Failed to create new user.";
 const UNEXPECTED_ERROR_MSG = "unexpected error";
 const CONNECTION_ERROR_MSG = "connection error"
 const ERROR_KEY = "error";
@@ -37,7 +38,9 @@ function registerEndpoints(app, dbController, authController){
                 },
                 token: await authController.getToken(user)
             };
+            res.status(200);
         }catch{
+            console.error("Failed login attempt registered!");
             res.status(401);
             resBody = {error: LOGIN_ERROR_MSG};
         }finally{
@@ -47,7 +50,33 @@ function registerEndpoints(app, dbController, authController){
     }
 
     async function doRegister(req, res){
-
+        const reqBody = req.body;
+        let resBody = {};
+        res.type('json');
+        try{
+            const newUser = await User.createNewUser(dbController, 
+                reqBody.name, 
+                reqBody.surname, 
+                reqBody.email,
+                reqBody.password);
+            resBody = {
+                user: {
+                    name: newUser.getName(),
+                    surname: newUser.getSurname(),
+                    email: newUser.getEmail(),
+                    id: newUser.getId()
+                },
+                token: await authController.getToken(newUser)
+            };
+            res.status(201);
+        }catch(error){
+            console.error("Failed to register a new user!\nAn error happened: ", error);
+            res.status(500);
+            resBody = {error: REGISTER_ERROR_MSG};
+        }finally{
+            res.json(resBody);
+            res.end();
+        }   
     }
 
     async function returnEvaluations(req, res) {
@@ -98,6 +127,7 @@ function registerEndpoints(app, dbController, authController){
 
     // Registering the endpoints
     app.post('/user/login', doLogin);
+    app.post('/user/register', doRegister);
 }
 
 module.exports = registerEndpoints;
