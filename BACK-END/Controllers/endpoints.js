@@ -1,15 +1,10 @@
 const User = require("../Models/User.js")
-const dbController = require("./DatabaseController.js");
 const Evaluation = require("../Models/Evaluation.js")
-
-let db = new dbController("localhost", 3306, "admin", "WCaQnnUB", "feedbook_db");
 
 const AUTH_ERROR_MSG = "wrong credentials";
 const UNEXPECTED_ERROR_MSG = "unexpected error";
 const CONNECTION_ERROR_MSG = "connection error"
 const ERROR_KEY = "error";
-
-db.connect().then(() => { console.log("BD conectado.") });
 
 async function doLogin(req, res, db) {
     const resData = req.body;
@@ -68,26 +63,6 @@ async function returnEvaluations(req, res, db) {
         return
     }
 }
-
-
-
-const express = require('express');
-
-const app = express();
-
-app.use(express.json());
-
-app.post("/hello", async function(req, res) {
-    res.set("Content-Type", "application/json");
-    // const data = await doLogin(req, res, db);
-    await returnEvaluations(req, res, db);
-    // res.send(data);
-});
-
-app.listen(3000, () => {
-    console.log("listening on port 3000");
-});
-
 
 // async function cadastrateUser(resData, db) {
 //     if (!db.isConnected()) {
