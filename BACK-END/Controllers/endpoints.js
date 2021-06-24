@@ -18,7 +18,32 @@ const ERROR_KEY = "error";
 function registerEndpoints(app, dbController, authController){
     // Defining the endpoint handler functions
     async function doLogin(req, res) {
-
+        const reqBody = req.body;
+        let resBody = {};
+        // Setting response type to JSON
+        res.type('json');
+        // Trying to authenticate the user
+        try{
+            const user = await User.getUserByEmail(dbController, reqBody.email);
+            if(!user.validatePassword(reqBody.password)){
+                throw "Invalid password!";
+            }
+            resBody = {
+                user: {
+                    name: user.getName(),
+                    surname: user.getSurname(),
+                    email: user.getEmail(),
+                    id: user.getId()
+                },
+                token: await authController.getToken(user)
+            };
+        }catch{
+            res.status(401);
+            resBody = {error: LOGIN_ERROR_MSG};
+        }finally{
+            res.json(resBody);
+            res.end();
+        }
     }
 
     async function doRegister(req, res){
