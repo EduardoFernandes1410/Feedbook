@@ -3,6 +3,7 @@ require("dotenv-safe").config({example: "./Configs/.env.example"});
 const fs = require("fs");
 const express = require("express");
 const DatabaseController = require("./Controllers/DatabaseController");
+const AuthController = require("./Controllers/AuthController");
 const registerEndpoints = require('./Controllers/endpoints');
 // Crating the express server app
 const app = express();
