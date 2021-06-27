@@ -37,7 +37,7 @@ class Evaluation {
             row.evaluation_material_quality,
             row.evaluation_professor_evaluation,
             row.evaluation_content_complexity,
-            row.evaluation_general_evaluation,
+            row.general_evaluation,
             row.evaluation_upvote_count,
             row.evaluation_downvote_count,
             row.evaluation_desc,
@@ -72,17 +72,17 @@ class Evaluation {
         the given data on success.
     */
     static async createNewEvaluation(dbController, subject_id, owner, dedication_time, material_quality, professor_evaluation,
-        content_complexity, general_evaluation, desc, user_id) {
+        content_complexity, general_evaluation, desc) {
 
-        let newEvaluation = newEvaluation(null, subject_id, owner, dedication_time, material_quality, professor_evaluation,
-            content_complexity, general_evaluation, desc, 0, 0, dbController);
+        let newEvaluation = new Evaluation(null, subject_id, owner, dedication_time, material_quality, professor_evaluation,
+            content_complexity, general_evaluation, 0, 0, desc, dbController);
 
         await dbController.insert(
             EVALUATION_TABLE, [
                 newEvaluation.subject_id, newEvaluation.owner, newEvaluation.dedication_time,
                 newEvaluation.material_quality, newEvaluation.professor_evaluation, newEvaluation.content_complexity,
-                newEvaluation.general_evaluation, newEvaluation.upvote_count, newEvaluation.downvote_count, newEvaluation.dbController,
-                newEvaluation.upvoted, newEvaluation.downvoted, newEvaluation.desc
+                newEvaluation.general_evaluation, newEvaluation.upvote_count, newEvaluation.downvote_count,
+                newEvaluation.desc
             ],
             "subject_id,evaluation_owner,evaluation_dedication_time,evaluation_material_quality,evaluation_professor_evaluation,evaluation_content_complexity,general_evaluation,evaluation_upvote_count,evaluation_downvote_count,evaluation_desc"
         );
@@ -98,25 +98,25 @@ class Evaluation {
         await dbController.deleteEntry(EVALUATION_TABLE, EVALUATION_ID_COLUMN, id);
     }
 
-    static async checkVoting(dbController, evalObj, user_id) {
+    static async checkVoting(dbController, eval_obj, user_id) {
         const q = await dbController.select(
             VOTES_TABLE,
             "",
-            mysql.format("evaluation_id=? AND user_id=?", [evalObj.id, user_id])
+            mysql.format("evaluation_id=? AND user_id=?", [eval_obj.id, user_id])
         );
         if (!q.length) {
-            evalObj.upvoted = false;
-            evalObj.downvoted = false;
+            eval_obj.upvoted = false;
+            eval_obj.downvoted = false;
         } else {
             if (q[0].vote_type == 1) {
-                evalObj.upvoted = true;
-                evalObj.downvoted = false;
+                eval_obj.upvoted = true;
+                eval_obj.downvoted = false;
             } else if (q[0].vote_type == 0) {
-                evalObj.upvoted = false;
-                evalObj.downvoted = false;
+                eval_obj.upvoted = false;
+                eval_obj.downvoted = false;
             } else if (q[0].vote_type == -1) {
-                evalObj.upvoted = false;
-                evalObj.downvoted = true;
+                eval_obj.upvoted = false;
+                eval_obj.downvoted = true;
             }
         }
     }

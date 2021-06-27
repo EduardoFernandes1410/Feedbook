@@ -86,16 +86,35 @@ class Subject {
         subject.professor_img_url = professorData[0].professor_img_url;
     }
 
-    static async userEvaluatedSubject(dbController, user_id, subject_id) {
+    static async userEvaluatedSubject(dbController, user_id, subject_id, eval_obj) {
         await dbController.insert(
             USER_EVALUATED_SUBJECT_TABLE, [user_id, subject_id],
             USER_EVALUATED_SUBJECT_COLUMNS
         );
 
-        const subject = await Subject.getSubjectById(subject_id);
 
-        await dbController.updateEntry(SUBJECT_TABLE, ["subject_id"], [subject_id], { "evaluations_count": subject.evaluations_count + 1 });
+        const subject = await Subject.getSubjectById(dbController, subject_id);
+        const eval_count = subject[0].evaluations_count
+        const newValues = {
+            "evaluations_count": eval_count + 1,
+            "mean_dedication_time": ((subject[0].mean_dedication_time * eval_count) + eval_obj.dedication_time) / (eval_count + 1),
+            "mean_material_quality": ((subject[0].mean_material_quality * eval_count) + eval_obj.material_quality) / (eval_count + 1),
+            "mean_professor_evaluation": ((subject[0].mean_professor_evaluation * eval_count) + eval_obj.professor_evaluation) / (eval_count + 1),
+            "mean_content_complexity": ((subject[0].mean_content_complexity * eval_count) + eval_obj.content_complexity) / (eval_count + 1),
+            "mean_general": ((subject[0].mean_general * eval_count) + eval_obj.general_evaluation) / (eval_count + 1)
+        }
+
+        await dbController.updateEntry(SUBJECT_TABLE, ["subject_id"], [subject_id], newValues);
+
+
     }
+
+    static async checkEvaluatedByUser(dbController, user_id, subject_id) {
+        const a = await dbController.select(USER_EVALUATED_SUBJECT_TABLE, USER_EVALUATED_SUBJECT_COLUMNS,
+            mysql.format("user_id=? AND subject_id=?", [user_id, subject_id]));
+        return a.length > 0;
+    }
+
 
     // Returns the unique identifier of the current Subject
     getId() {
