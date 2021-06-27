@@ -6,6 +6,10 @@ const EVALUATION_DATA_COLUMNS = 'evaluation_id,subject_id,evaluation_owner,evalu
 const EVALUATION_ID_COLUMN = 'evaluation_id';
 const EVALUATION_TABLE = 'evaluation_tb';
 const VOTES_TABLE = 'user_votes_tb';
+const VOTES_COLUMNS = "user_id,evaluation_id,vote_type";
+const USER_EVALUATED_SUBJECT_TABLE = "user_evaluated_subject_tb";
+const USER_EVALUATED_SUBJECT_COLUMNS = "user_id,subject_id";
+
 
 class Evaluation {
     constructor(id, subject_id, owner, dedication_time, material_quality, professor_evaluation, content_complexity,
@@ -71,7 +75,7 @@ class Evaluation {
         the given data on success.
     */
     static async createNewEvaluation(dbController, subject_id, owner, dedication_time, material_quality, professor_evaluation,
-        content_complexity, general_evaluation, desc) {
+        content_complexity, general_evaluation, desc, user_id) {
 
         let newEvaluation = newEvaluation(null, subject_id, owner, dedication_time, material_quality, professor_evaluation,
             content_complexity, general_evaluation, desc, 0, 0, dbController);
@@ -87,6 +91,12 @@ class Evaluation {
         );
         const id = await dbController.query("SELECT last_insert_id()");
         newEvaluation.id = id[0]['last_insert_id()'];
+
+        await dbController.insert(
+            USER_EVALUATED_SUBJECT_TABLE, [user_id, newEvaluation.subject_id],
+            USER_EVALUATED_SUBJECT_COLUMNS
+        );
+
         return newEvaluation;
     }
 
@@ -117,6 +127,36 @@ class Evaluation {
                 evalObj.downvoted = true;
             }
         }
+    }
+
+    static async processVote(dbController, user_id, evaluation_id, vote_type) {
+        const currentVote = await dbController.select(
+            VOTES_TABLE, VOTES_COLUMNS,
+            mysql.format("user_id=? AND evaluation_id=?", [user_id, evaluation_id]));
+
+        if (currentVote.length == 0) {
+            await dbController.insert(VOTES_TABLE, [user_id, evaluation_id, vote_type], VOTES_COLUMNS);
+        } else {
+            await dbController.updateEntry(VOTES_TABLE, ["user_id", "evaluation_id"], [user_id, evaluation_id], { "vote_type": vote_type });
+        }
+    }
+
+    static async computeEvaluationVotes(dbController, evaluation_id) {
+
+        const upVotesCount = await dbController.select(
+            VOTES_TABLE,
+            VOTES_COLUMNS,
+            mysql.format("evaluation_id=? AND vote_type=1", evaluation_id));
+
+        const downVotesCount = await dbController.select(
+            VOTES_TABLE,
+            VOTES_COLUMNS,
+            mysql.format("evaluation_id=? AND vote_type=-1", evaluation_id)
+        );
+
+        return await dbController.updateEntry(
+            EVALUATION_TABLE, ["evaluation_id"], [evaluation_id], { "evaluation_upvote_count": upVotesCount.length, "evaluation_downvote_count": downVotesCount.length }
+        );
     }
 
     // Returns the unique identifier of the current evaluation
