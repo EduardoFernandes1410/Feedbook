@@ -109,6 +109,13 @@ class Subject {
 
     }
 
+    static async checkEvaluatedByUser(dbController, user_id, subject_id) {
+        const a = await dbController.select(USER_EVALUATED_SUBJECT_TABLE, USER_EVALUATED_SUBJECT_COLUMNS,
+            mysql.format("user_id=? AND subject_id=?", [user_id, subject_id]));
+        return a.length > 0;
+    }
+
+
     // Returns the unique identifier of the current Subject
     getId() {
         return this.id;
