@@ -2,6 +2,44 @@
   margin: 50px 50px 0 50px;
 }
 
-.container {
+#rating-form-body {
+  margin-top: 30px;
+}
+
+.field-label {
+  flex-basis: auto;
+  margin-right: 0px;
+  text-align: left;
+}
+
+@media screen and (min-width: 769px) {
+  .field-body .control {
+    float: right;
+  }
+}
+
+.control {
+  display: inline-block;
+}
+
+.radio {
+  margin-left: 20px;
+}
+
+#hours-input {
+  @media screen and (min-width: 769px) {
+    justify-content: flex-end;
+  }
+
+  input {
+    width: 75px;
+  }
+}
+
+#description {
+  width: 100%;
+}
+
+#buttons {
   margin-top: 20px;
 }
