@@ -4,6 +4,8 @@ const SUBJECT_DATA_COLUMNS = 'subject_id,professor_id,mean_dedication_time,mean_
 const SUBJECT_TABLE = 'subject_tb';
 const PROFESSOR_TALBE = 'professor_tb';
 const PROFESSOR_DATA_COLUMNS = 'professor_id,professor_name,professor_email,professor_img_url';
+const USER_EVALUATED_SUBJECT_TABLE = "user_evaluated_subject_tb";
+const USER_EVALUATED_SUBJECT_COLUMNS = "user_id,subject_id";
 
 class Subject {
     constructor(id, professor_id, mean_dedication_time, mean_material_quality, mean_professor_avalaition, mean_content_complexity, mean_general, cod, name, evaluations_count, search_field, dbController = null) {
@@ -82,6 +84,17 @@ class Subject {
         subject.professor_name = professorData[0].professor_name;
         subject.professor_email = professorData[0].professor_email;
         subject.professor_img_url = professorData[0].professor_img_url;
+    }
+
+    static async userEvaluatedSubject(dbController, user_id, subject_id) {
+        await dbController.insert(
+            USER_EVALUATED_SUBJECT_TABLE, [user_id, subject_id],
+            USER_EVALUATED_SUBJECT_COLUMNS
+        );
+
+        const subject = await Subject.getSubjectById(subject_id);
+
+        await dbController.updateEntry(SUBJECT_TABLE, ["subject_id"], [subject_id], { "evaluations_count": subject.evaluations_count + 1 });
     }
 
     // Returns the unique identifier of the current Subject
