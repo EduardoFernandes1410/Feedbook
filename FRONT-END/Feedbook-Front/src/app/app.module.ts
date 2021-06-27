@@ -19,6 +19,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { CourseCardComponent } from './components/course-card/course-card.component';
 import { ConfigComponent } from './pages/config/config.component';
 import { FbNavBarComponent } from './components/fb-nav-bar/fb-nav-bar.component';
+import { RatingComponent } from './pages/rating/rating.component';
+import { MiniCourseCardComponent } from './components/mini-course-card/mini-course-card.component';
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
@@ -41,7 +43,9 @@ const metaReducers: Array<MetaReducer<any, any>> = [
     FeedComponent,
     CourseCardComponent,
     ConfigComponent,
-    FbNavBarComponent
+    FbNavBarComponent,
+    RatingComponent,
+    MiniCourseCardComponent
   ],
   imports: [
     BrowserModule,
