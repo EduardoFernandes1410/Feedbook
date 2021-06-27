@@ -7,9 +7,6 @@ const EVALUATION_ID_COLUMN = 'evaluation_id';
 const EVALUATION_TABLE = 'evaluation_tb';
 const VOTES_TABLE = 'user_votes_tb';
 const VOTES_COLUMNS = "user_id,evaluation_id,vote_type";
-const USER_EVALUATED_SUBJECT_TABLE = "user_evaluated_subject_tb";
-const USER_EVALUATED_SUBJECT_COLUMNS = "user_id,subject_id";
-
 
 class Evaluation {
     constructor(id, subject_id, owner, dedication_time, material_quality, professor_evaluation, content_complexity,
@@ -91,11 +88,6 @@ class Evaluation {
         );
         const id = await dbController.query("SELECT last_insert_id()");
         newEvaluation.id = id[0]['last_insert_id()'];
-
-        await dbController.insert(
-            USER_EVALUATED_SUBJECT_TABLE, [user_id, newEvaluation.subject_id],
-            USER_EVALUATED_SUBJECT_COLUMNS
-        );
 
         return newEvaluation;
     }
