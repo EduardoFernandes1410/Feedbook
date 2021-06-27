@@ -81,6 +81,47 @@ function registerEndpoints(app, dbController, authController) {
         }
     }
 
+    async function doUpdate(req, res) {
+        const reqBody = req.body;
+        let resBody = {};
+        res.type('json');
+        // Checking request token and denying service if invalid
+        if(! await authController.validateToken(reqBody.token)){
+            console.error("User authentication failed: invalid token");
+            res.status(403);
+            res.json({error: AUTH_FAILURE_MSG});
+            res.end();
+            return;
+        }
+        // Retrieving user to modify and modifying the data
+        try{
+            let user = await User.getUserById(dbController, reqBody.user.id);
+            user.changeName(reqBody.user.name);
+            user.changeSurname(reqBody.user.surname);
+            user.changeEmail(reqBody.user.email);
+            user.changePassword(reqBody.user.password);
+            await user.saveUpdates();
+            resBody = {
+                user: {
+                    name: user.getName(),
+                    surname: user.getSurname(),
+                    email: user.getEmail(),
+                    id: user.getId()
+                },
+                // Generating a new token for the updated user data
+                token: await authController.getToken(user)
+            };
+            res.status(200);
+        }catch(error){
+            console.error('Failed to update user!\nThe server encountered an error:', error);
+            res.status(500);
+            resBody = {error: UNEXPECTED_ERROR_MSG};
+        }finally{
+            res.json(resBody);
+            res.end();
+        }
+    }
+
     async function returnEvaluations(req, res) {
         const reqData = req.body;
         // checks connection
@@ -256,6 +297,7 @@ function registerEndpoints(app, dbController, authController) {
     // Registering the endpoints
     app.post('/user/login', doLogin);
     app.post('/user/register', doRegister);
+    app.put('/user/update', doUpdate);
     app.post('/subject/evaluations', returnEvaluations);
     app.post('/feed/all', feedSubjects);
     app.post('/feed/search', doSearch);
