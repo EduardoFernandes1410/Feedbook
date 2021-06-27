@@ -116,6 +116,7 @@ function registerEndpoints(app, dbController, authController) {
                 });
             };
             res.send({ "evaluations": evaluationsArr }); // falta retornar subject
+            console.log(`All subject ${reqData.subjectId} evaluations have been retrieved.`)
             return
         } catch {
             res.status(400).send({ ERROR_KEY: UNEXPECTED_ERROR_MSG });
@@ -163,6 +164,7 @@ function registerEndpoints(app, dbController, authController) {
             });
 
             res.send({ "subjects": subjectsArr.reverse() });
+            console.log("Subjects have been retrieved by order.")
             return
         } catch {
             res.status(400).send({ ERROR_KEY: UNEXPECTED_ERROR_MSG });
@@ -206,9 +208,47 @@ function registerEndpoints(app, dbController, authController) {
             };
 
             res.send({ "subjects": subjectsArr });
+            console.log("Subjects have been retrieved by searching.")
             return
         } catch {
             res.status(400).send({ ERROR_KEY: UNEXPECTED_ERROR_MSG });
+            return
+        }
+    }
+
+    async function doEvaluation(req, res) {
+        const reqData = req.body;
+        // checks connection
+        if (!dbController.isConnected()) {
+            res.status(400).send({ ERROR_KEY: CONNECTION_ERROR_MSG })
+            return
+        }
+
+        // auth check
+        if (!await authController.validateToken(reqData.token)) {
+            res.status(400).send({ ERROR_KEY: AUTH_FAILURE_MSG })
+            return
+        }
+
+        try {
+            const eval = await Evaluation.createNewEvaluation(
+                dbController,
+                reqData.subjectId,
+                reqData.evaluation.owner,
+                reqData.evaluation.dedicationTime,
+                reqData.evaluation.materialQuality,
+                reqData.evaluation.professorEvaluation,
+                reqData.evaluation.contentComplexity,
+                reqData.evaluation.generalEvaluation,
+                reqData.evaluation.desc,
+            )
+            await Subject.userEvaluatedSubject(dbController, reqData.userId, reqData.subjectId, eval);
+            res.send({});
+            console.log(`Subject ${reqData.subjectId} evaluated.`)
+            return
+        } catch {
+            res.status(400).send({ ERROR_KEY: UNEXPECTED_ERROR_MSG });
+            console.log("Error in evaluation.")
             return
         }
     }
@@ -219,7 +259,7 @@ function registerEndpoints(app, dbController, authController) {
     app.post('/subject/evaluations', returnEvaluations);
     app.post('/feed/all', feedSubjects);
     app.post('/feed/search', doSearch);
-
+    app.post('/subject/evaluate', doEvaluation);
 
 }
 
