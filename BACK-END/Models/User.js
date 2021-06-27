@@ -79,7 +79,7 @@ class User{
     // Updates the current user's data on the database if any changes happened
     async saveUpdates(){
         if(this.updated){
-            await this.dbController.updateEntry(USER_TABLE, USER_ID_COLUMN, this.id, {
+            await this.dbController.updateEntry(USER_TABLE, [USER_ID_COLUMN], [this.id], {
                 user_name: this.name,
                 user_surname: this.surname,
                 user_email: this.email,
