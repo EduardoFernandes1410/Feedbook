@@ -259,20 +259,20 @@ function registerEndpoints(app, dbController, authController) {
 
     async function doEvaluation(req, res) {
         const reqData = req.body;
+        let resData = {};
+        res.type('json');
         // checks connection
         if (!dbController.isConnected()) {
-            res.status(400).send({ ERROR_KEY: CONNECTION_ERROR_MSG })
-            return
+            res.status(503).send({ ERROR_KEY: CONNECTION_ERROR_MSG });
+            return;
         }
-
         // auth check
         if (!await authController.validateToken(reqData.token)) {
-            res.status(400).send({ ERROR_KEY: AUTH_FAILURE_MSG })
-            return
+            res.status(403).send({ ERROR_KEY: AUTH_FAILURE_MSG });
+            return;
         }
-
         try {
-            const eval = await Evaluation.createNewEvaluation(
+            const evaluation = await Evaluation.createNewEvaluation(
                 dbController,
                 reqData.subjectId,
                 reqData.evaluation.owner,
@@ -281,16 +281,18 @@ function registerEndpoints(app, dbController, authController) {
                 reqData.evaluation.professorEvaluation,
                 reqData.evaluation.contentComplexity,
                 reqData.evaluation.generalEvaluation,
-                reqData.evaluation.desc,
-            )
-            await Subject.userEvaluatedSubject(dbController, reqData.userId, reqData.subjectId, eval);
-            res.send({});
-            console.log(`Subject ${reqData.subjectId} evaluated.`)
-            return
-        } catch {
-            res.status(400).send({ ERROR_KEY: UNEXPECTED_ERROR_MSG });
-            console.log("Error in evaluation.")
-            return
+                reqData.evaluation.desc
+            );
+            await Subject.userEvaluatedSubject(dbController, reqData.userId, reqData.subjectId, evaluation);
+            res.status(200);
+            resData = {};
+        } catch(error) {
+            res.status(500);
+            resData = {error: UNEXPECTED_ERROR_MSG};
+            console.error("Error evaluating subject: ", error);
+        }finally{
+            res.json(resData);
+            res.end();
         }
     }
 
