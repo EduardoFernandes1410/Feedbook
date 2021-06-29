@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reviews.component.scss']
 })
 export class ReviewsComponent implements OnInit {
+  public visible: boolean;
 
   constructor() { }
 
+  close() {
+    this.visible = false;
+  }
+
   ngOnInit() {
+    this.visible = true;
   }
 
 }
