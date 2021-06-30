@@ -140,7 +140,7 @@ function registerEndpoints(app, dbController, authController) {
             const q = await Evaluation.getSubjectEvaluations(dbController, reqData.subjectId);
             var evaluationsArr = Array();
             for (var e of q) {
-                await Evaluation.checkVoting(dbController, e, reqData.userId);
+                await e.checkVoting(reqData.userId);
                 evaluationsArr.push({
                     "evaluationId": e.id,
                     "evaluationOwner": e.owner,
@@ -296,6 +296,42 @@ function registerEndpoints(app, dbController, authController) {
         }
     }
 
+    async function doEvaluationVote(req, res){
+        const reqData = req.body;
+        let resData = {};
+        res.type('json');
+        // Checking if the user is authenticated
+        if(! await authController.validateToken(reqData.token)){
+            res.status(403);
+            res.json({error: AUTH_FAILURE_MSG});
+            res.end();
+            return;
+        }
+        try{
+            // Checking if the evaluation type is valid
+            if(!Number.isInteger(reqData.type) && (reqData.type < -1 || reqData.type > 1)){
+                console.error(`Invalid vote type "${reqData.type}" received from the requisition.\nThe vote type must be 1 for upvote, -1 for downvote and 0 for null!`);
+                throw Error("Invalid vote type received from the requisition.");
+            }
+            // Getting the target evaluation
+            let currentEval = await Evaluation.getEvaluationById(dbController, reqData.evaluationId);
+            // Checking if the user already voted on the current evaluation
+            await currentEval.checkVoting(reqData.userId);
+            // Processing the vote (updating vote or skipping if needed)
+            await Evaluation.processVote(dbController, reqData.userId, reqData.evaluationId, reqData.type);
+            // Updating the count of up/down votes on the current evaluation
+            await Evaluation.computeEvaluationVotes(dbController, currentEval.getId())
+            res.status(200);  
+        }catch(error){
+            console.error('Error evaluating subject: ', error);
+            resData = {error: UNEXPECTED_ERROR_MSG};
+            res.status(500);
+        }finally{
+            res.json(resData);
+            res.end();
+        }
+    }
+
     // Registering the endpoints
     app.post('/user/login', doLogin);
     app.post('/user/register', doRegister);
@@ -304,7 +340,7 @@ function registerEndpoints(app, dbController, authController) {
     app.post('/feed/all', feedSubjects);
     app.post('/feed/search', doSearch);
     app.post('/subject/evaluate', doEvaluation);
-
+    app.post('/subject/evaluate/vote', doEvaluationVote);
 }
 
 module.exports = registerEndpoints;
