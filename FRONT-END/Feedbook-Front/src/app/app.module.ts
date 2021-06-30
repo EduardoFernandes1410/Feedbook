@@ -21,6 +21,7 @@ import { ConfigComponent } from './pages/config/config.component';
 import { FbNavBarComponent } from './components/fb-nav-bar/fb-nav-bar.component';
 import { RatingComponent } from './pages/rating/rating.component';
 import { MiniCourseCardComponent } from './components/mini-course-card/mini-course-card.component';
+import { ReviewsComponent } from './components/reviews/reviews.component';
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
@@ -45,7 +46,8 @@ const metaReducers: Array<MetaReducer<any, any>> = [
     ConfigComponent,
     FbNavBarComponent,
     RatingComponent,
-    MiniCourseCardComponent
+    MiniCourseCardComponent,
+    ReviewsComponent
   ],
   imports: [
     BrowserModule,
