@@ -68,7 +68,7 @@ class Evaluation {
 
     /*
         Adds an evaluation with the given data in the database, using 
-        the given controller. Returns an Eluvation object with
+        the given controller. Returns an Evaluation object with
         the given data on success.
     */
     static async createNewEvaluation(dbController, subject_id, owner, dedication_time, material_quality, professor_evaluation,
@@ -98,25 +98,26 @@ class Evaluation {
         await dbController.deleteEntry(EVALUATION_TABLE, EVALUATION_ID_COLUMN, id);
     }
 
-    static async checkVoting(dbController, eval_obj, user_id) {
-        const q = await dbController.select(
+    // Updates the object internal state regarding to the votes of the current user on this evaluation
+    async checkVoting(user_id) {
+        const q = await this.dbController.select(
             VOTES_TABLE,
             "",
-            mysql.format("evaluation_id=? AND user_id=?", [eval_obj.id, user_id])
+            mysql.format("evaluation_id=? AND user_id=?", [this.id, user_id])
         );
         if (!q.length) {
-            eval_obj.upvoted = false;
-            eval_obj.downvoted = false;
+            this.upvoted = false;
+            this.downvoted = false;
         } else {
             if (q[0].vote_type == 1) {
-                eval_obj.upvoted = true;
-                eval_obj.downvoted = false;
+                this.upvoted = true;
+                this.downvoted = false;
             } else if (q[0].vote_type == 0) {
-                eval_obj.upvoted = false;
-                eval_obj.downvoted = false;
+                this.upvoted = false;
+                this.downvoted = false;
             } else if (q[0].vote_type == -1) {
-                eval_obj.upvoted = false;
-                eval_obj.downvoted = true;
+                this.upvoted = false;
+                this.downvoted = true;
             }
         }
     }
