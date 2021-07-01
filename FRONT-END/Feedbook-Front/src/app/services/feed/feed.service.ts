@@ -1,15 +1,11 @@
 import { SubjectList } from './../../models/feed';
-import { UserData, RegisterData } from '../../models/auth';
 import { FeedEndpoints } from './feed.endpoints';
-import { interceptorSkipHeader } from '../../models/consts/interceptor-skip-header';
 import { Injectable, NgZone } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Credentials } from 'src/app/models/auth';
 import { first } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/stores/reducers';
-import { getLoggedUser } from 'src/app/stores/auth/auth.selectors';
 
 @Injectable({
   providedIn: 'root',
