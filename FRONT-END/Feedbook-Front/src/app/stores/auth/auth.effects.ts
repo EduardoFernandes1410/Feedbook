@@ -38,7 +38,32 @@ export class AuthEffects {
         ofType(AuthActions.authActionTypes.loginCompleted),
         tap(async () => {
           this.ngZone.run(() => {
-            this.router.navigate(['/questions']);
+            this.router.navigate(['/feed']);
+          });
+        }),
+      ),
+    { dispatch: false },
+  );
+
+  registerRequested$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.authActionTypes.registerRequested),
+      switchMap((action) => {
+        return from(this.authService.register(action.user)).pipe(
+          map(user => AuthActions.registerCompleted({ user })),
+          catchError(error => of(AuthActions.authError({ error }))),
+        );
+      }),
+    ),
+  );
+
+  registerCompleted$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.authActionTypes.registerCompleted),
+        tap(async () => {
+          this.ngZone.run(() => {
+            this.router.navigate(['/feed']);
           });
         }),
       ),

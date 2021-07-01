@@ -6,6 +6,8 @@ const reducer = createReducer(
   authEmptyState,
   on(AuthActions.loginRequested, state => ({ ...state, isLoading: true })),
   on(AuthActions.loginCompleted, (state, { user }) => ({ ...state, loggedUser: user, isLoading: false })),
+  on(AuthActions.registerRequested, state => ({ ...state, isLoading: true })),
+  on(AuthActions.registerCompleted, (state, { user }) => ({ ...state, loggedUser: user, isLoading: false })),
   on(AuthActions.logout, state => state = authEmptyState),
   on(AuthActions.authError, state => ({ ...state, isLoading: false })),
 );
