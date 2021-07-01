@@ -1,3 +1,5 @@
+import { AuthGuard } from './guards/auth/auth.guard';
+import { LoggedGuard } from './guards/logged/logged.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -9,11 +11,11 @@ import { RatingComponent } from './pages/rating/rating.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'registration', component: RegistrationComponent },
-  { path: 'feed', component: FeedComponent },
-  { path: 'config', component: ConfigComponent },
-  { path: 'rating', component: RatingComponent }
+  { path: 'login', component: LoginComponent, canActivate: [LoggedGuard] },
+  { path: 'registration', component: RegistrationComponent, canActivate: [LoggedGuard] },
+  { path: 'feed', component: FeedComponent, canActivate: [AuthGuard] },
+  { path: 'config', component: ConfigComponent, canActivate: [AuthGuard] },
+  { path: 'rating', component: RatingComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
