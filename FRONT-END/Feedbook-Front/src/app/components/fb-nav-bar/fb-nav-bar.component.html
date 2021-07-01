@@ -16,7 +16,7 @@
     <div *ngIf='searchBox' class="navbar-start">
       <div id="search-box-container" class="navbar-item is-expanded">
         <div class="control has-icons-left">
-          <input id="search-box" class="input" type="text" placeholder="Busque uma matéria">
+          <input id="search-box" class="input" type="text" placeholder="Busque uma matéria" (change)="emmitChange($event)">
           <span class="icon is-small is-left">
             <i class="fas fa-search"></i>
           </span>

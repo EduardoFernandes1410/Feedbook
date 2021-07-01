@@ -1,19 +1,20 @@
 <body class="has-navbar-fixed-top">
-  <app-fb-nav-bar [searchBox]="true" [configButton]="true"></app-fb-nav-bar>
+  <app-fb-nav-bar [searchBox]="true" [configButton]="true" (whenSearch)="searchSubject($event)"></app-fb-nav-bar>
 
   <!-- Content -->
   <div id="content-container">
     <!-- Sort-by selector -->
     <div class="field is-horizontal">
-      <label class="field-label label">Ordenar por:</label>
+      <label class="field-label label">Ordenar por: {{ orderBy }}</label>
       <div class="control has-icons-left">
         <div class="select">
-          <select>
-            <option selected>Nota geral</option>
-            <option>Complexidade do conteúdo</option>
-            <option>Qualidade do material</option>
-            <option>Avaliação do docente</option>
-            <option>Tempo de dedicação</option>
+          <select [(ngModel)]="orderBy" (change)="getSubjectList()">
+            <option value="meanGeneral">Nota geral</option>
+            <option value="meanContentComplexity">Complexidade do conteúdo</option>
+            <option value="meanMaterialQuality">Qualidade do material</option>
+            <option value="meanProfessorEvaluation">Avaliação do docente</option>
+            <option value="meanDedicationTime">Tempo de dedicação</option>
+            <option value="evaluationsCount">Quantidade de avaliações</option>
           </select>
         </div>
         <div class="icon is-small is-left">
