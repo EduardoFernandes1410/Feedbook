@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { MustMatch } from 'src/app/validators/password.validator';
+import { registerRequested } from 'src/app/stores/auth/auth.actions';
 
 @Component({
   selector: 'app-registration',
@@ -40,7 +41,7 @@ export class RegistrationComponent implements OnInit {
 
   public register() {
     if (this.registerForm.valid) {
-      // this.store.dispatch(registerRequested({ user: this.registerForm.value }));
+      this.store.dispatch(registerRequested({ user: this.registerForm.value }));
     } else {
       console.log(this.registerForm);
       this.registerForm.markAllAsTouched();
