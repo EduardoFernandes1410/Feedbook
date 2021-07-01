@@ -1,13 +1,13 @@
 import { SubjectList } from './../../models/feed';
 import { UserData } from '../../models/auth';
 
-export interface AuthState {
+export interface FeedState {
   subjectList: SubjectList;
   isLoading: boolean;
   error: any;
 }
 
-export const authEmptyState: AuthState = {
+export const feedEmptyState: FeedState = {
   subjectList: null,
   isLoading: false,
   error: null,
