@@ -1,7 +1,7 @@
-import { LoggedUser } from 'src/app/models/auth';
+import { UserData } from './../../models/auth';
 
 export interface AuthState {
-  loggedUser: LoggedUser;
+  loggedUser: UserData;
   isLoading: boolean;
   error: any;
 }
