@@ -1,8 +1,8 @@
 export interface SubjectList {
-  subjects: Subject[];
+  subjects: SubjectItem[];
 }
 
-export interface Subject {
+export interface SubjectItem {
   subjectId: number,
   professorName: string,
   professorImgUrl: string,

@@ -1,4 +1,4 @@
-import { SubjectList } from './../../models/feed';
+import { SubjectItem, SubjectList } from './../../models/feed';
 import { FeedEndpoints } from './feed.endpoints';
 import { Injectable, NgZone } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
@@ -23,8 +23,17 @@ export class FeedService {
     const params = new HttpParams({
       fromObject: { orderBy } as any,
     });
-    const endpoint = FeedEndpoints.base();
+    const endpoint = FeedEndpoints.subjectList();
     const res = await this.httpClient.get<SubjectList>(endpoint, { params }).pipe(first()).toPromise();
+    return res;
+  }
+
+  public async getSubject(query: string): Promise<SubjectItem> {
+    const params = new HttpParams({
+      fromObject: { query } as any,
+    });
+    const endpoint = FeedEndpoints.search();
+    const res = await this.httpClient.get<SubjectItem>(endpoint, { params }).pipe(first()).toPromise();
     return res;
   }
 
