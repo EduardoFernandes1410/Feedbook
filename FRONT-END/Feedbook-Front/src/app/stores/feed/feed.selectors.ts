@@ -12,3 +12,6 @@ export const getAuthIsLoading = createSelector(mapFeedState, mapIsLoading);
 
 export const mapSubjectList = (state: FeedState) => state.subjectList;
 export const getSubjectList = createSelector(mapFeedState, mapSubjectList);
+
+export const mapSubjectItem = (state: FeedState) => state.subjectItem;
+export const getSubjectItem = createSelector(mapFeedState, mapSubjectItem);

@@ -39,6 +39,26 @@ export class FeedEffects {
     { dispatch: false },
   );
 
+  getSubjectRequested$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(FeedActions.feedActionTypes.getSubjectRequested),
+      switchMap((action) => {
+        return from(this.feedService.getSubject(action.query)).pipe(
+          map(subject => FeedActions.getSubjectCompleted({ subject })),
+          catchError(error => of(FeedActions.feedError({ error }))),
+        );
+      }),
+    ),
+  );
+
+  getSubjectCompleted$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(FeedActions.feedActionTypes.getSubjectCompleted),
+      ),
+    { dispatch: false },
+  );
+
   feedError$ = createEffect(
     () =>
       this.actions$.pipe(
