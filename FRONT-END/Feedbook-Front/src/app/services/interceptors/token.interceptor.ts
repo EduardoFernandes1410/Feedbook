@@ -15,7 +15,7 @@ import { getLoggedUser } from 'src/app/stores/auth/auth.selectors';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  private defaultTimeout = 5000;
+  private defaultTimeout = 60000;
 
   constructor(
     private store: Store<AppState>,
