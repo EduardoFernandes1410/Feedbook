@@ -30,7 +30,7 @@
           <span class="icon">
             <i class="fas fa-user"></i>
           </span>
-          <span>Alan Turing</span>
+          <span>{{ (loggedUser$ | async).user.name + " " + (loggedUser$ | async).user.surname }}</span>
         </span>
       </div>
       <div class="navbar-item">
@@ -38,7 +38,7 @@
           <a *ngIf='configButton' class="button is-light" routerLink="../config" routerLinkActive="active">
             <strong>Configurações</strong>
           </a>
-          <a class="button is-danger">
+          <a class="button is-danger" (click)="logout()">
             Sair
           </a>
         </div>
