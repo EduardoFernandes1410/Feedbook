@@ -14,6 +14,10 @@ export class AuthEndpoints {
     return `${this.base()}/register`;
   }
 
+  public static update(): string {
+    return `${this.base()}/update`;
+  }
+
   public static forgotPassword(): string {
     return `${this.base()}/forgot-password`;
   }

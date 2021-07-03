@@ -34,6 +34,11 @@ export class AuthService {
     return res;
   }
 
+  public async update(userData: any, token: any): Promise<UserData> {
+    const res = await this.httpClient.post<UserData>(AuthEndpoints.update(), { user: userData, token }).toPromise();
+    return res;
+  }
+
   public async logout(): Promise<void> {
     this.ngZone.run(() => {
       this.ngZone.runOutsideAngular(() => {
