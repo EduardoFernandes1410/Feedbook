@@ -1,4 +1,5 @@
 // Loading the .env file configuration variables
+var cors = require('cors');
 require("dotenv-safe").config({ example: "./Configs/.env.example" });
 const fs = require("fs");
 const express = require("express");
@@ -9,6 +10,7 @@ const registerEndpoints = require('./Controllers/endpoints');
 // Crating the express server app
 const app = express();
 // Adding the JSON body parser to the app
+app.use(cors());
 app.use(express.json());
 app.use(function(req, res, next) {
 

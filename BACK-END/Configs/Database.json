@@ -1,7 +1,7 @@
 {
-    "host": "localhost",
+    "host": "db4free.net",
     "port": 3306,
-    "user": "root",
-    "password": "",
-    "defaultDatabase": "db_name"
+    "user": "feedbook_adm",
+    "password": "Feedbook@2021",
+    "defaultDatabase": "feedbook_db"
 }
