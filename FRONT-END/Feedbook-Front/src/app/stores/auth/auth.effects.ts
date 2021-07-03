@@ -70,6 +70,26 @@ export class AuthEffects {
     { dispatch: false },
   );
 
+  userUpdateRequested$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.authActionTypes.userUpdateRequested),
+      switchMap((action) => {
+        return from(this.authService.update(action.userData, action.token)).pipe(
+          map(user => AuthActions.userUpdateCompleted({ user })),
+          catchError(error => of(AuthActions.authError({ error }))),
+        );
+      }),
+    ),
+  );
+
+  userUpdateCompleted$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.authActionTypes.userUpdateCompleted),
+      ),
+    { dispatch: false },
+  );
+
   authLogout$ = createEffect(
     () =>
       this.actions$.pipe(
