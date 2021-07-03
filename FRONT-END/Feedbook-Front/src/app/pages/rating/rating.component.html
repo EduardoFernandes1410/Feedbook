@@ -1,13 +1,13 @@
 <body class="has-navbar-fixed-top">
   <app-fb-nav-bar [searchBox]="false" [configButton]="true"></app-fb-nav-bar>
 
-  <div id="rating-form" [formGroup]="ratingForm">
+  <div id="rating-form">
     <div class="columns">
       <div class="column column is-6-fullhd is-offset-3-fullhd is-8-desktop is-offset-2-desktop is-10-tablet is-offset-1-tablet">
         <app-mini-course-card></app-mini-course-card>
 
         <!-- Rating Form -->
-        <div id="rating-form-body">
+        <div id="rating-form-body" [formGroup]="ratingForm">
           <div class="field is-horizontal is-normal">
             <div class="field-label">
               <label class="label">

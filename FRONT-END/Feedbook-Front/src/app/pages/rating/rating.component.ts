@@ -75,7 +75,6 @@ export class RatingComponent implements OnInit {
 
   public ngOnInit(): void {
     this.subjectId = this.activatedRoute.snapshot.params.id;
-
     this.initForm();
   }
 
