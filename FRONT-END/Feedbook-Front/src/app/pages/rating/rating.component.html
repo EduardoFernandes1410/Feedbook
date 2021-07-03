@@ -1,7 +1,7 @@
 <body class="has-navbar-fixed-top">
   <app-fb-nav-bar [searchBox]="false" [configButton]="true"></app-fb-nav-bar>
 
-  <div id="rating-form">
+  <div id="rating-form" [formGroup]="ratingForm">
     <div class="columns">
       <div class="column column is-6-fullhd is-offset-3-fullhd is-8-desktop is-offset-2-desktop is-10-tablet is-offset-1-tablet">
         <app-mini-course-card></app-mini-course-card>
@@ -17,29 +17,29 @@
                   </span>
                   <span class="has-text-weight-bold">Nota geral:</span>
                 </span>
-              </label> 
+              </label>
             </div>
             <div class="field-body">
               <div class="field">
                 <div class="control">
                   <label class="radio">
-                    <input type="radio" name="overall-answer">
+                    <input value="1" type="radio" name="overall-answer" (change)="setOverall($event)">
                     1
                   </label>
                   <label class="radio">
-                    <input type="radio" name="overall-answer">
+                    <input value="2" type="radio" name="overall-answer" (change)="setOverall($event)">
                     2
                   </label>
                   <label class="radio">
-                    <input type="radio" name="overall-answer">
+                    <input value="3" type="radio" name="overall-answer" (change)="setOverall($event)">
                     3
                   </label>
                   <label class="radio">
-                    <input type="radio" name="overall-answer">
+                    <input value="4" type="radio" name="overall-answer" (change)="setOverall($event)">
                     4
                   </label>
                   <label class="radio">
-                    <input type="radio" name="overall-answer">
+                    <input value="5" type="radio" name="overall-answer" (change)="setOverall($event)">
                     5
                   </label>
                 </div>
@@ -56,29 +56,29 @@
                   </span>
                   <span class="has-text-weight-bold">Complexidade do conteúdo:</span>
                 </span>
-              </label> 
+              </label>
             </div>
             <div class="field-body">
               <div class="field">
                 <div class="control">
                   <label class="radio">
-                    <input type="radio" name="complexity-answer">
+                    <input value="1" type="radio" name="complexity-answer" (change)="setComplexity($event)">
                     1
                   </label>
                   <label class="radio">
-                    <input type="radio" name="complexity-answer">
+                    <input value="2" type="radio" name="complexity-answer" (change)="setComplexity($event)">
                     2
                   </label>
                   <label class="radio">
-                    <input type="radio" name="complexity-answer">
+                    <input value="3" type="radio" name="complexity-answer" (change)="setComplexity($event)">
                     3
                   </label>
                   <label class="radio">
-                    <input type="radio" name="complexity-answer">
+                    <input value="4" type="radio" name="complexity-answer" (change)="setComplexity($event)">
                     4
                   </label>
                   <label class="radio">
-                    <input type="radio" name="complexity-answer">
+                    <input value="5" type="radio" name="complexity-answer" (change)="setComplexity($event)">
                     5
                   </label>
                 </div>
@@ -95,29 +95,29 @@
                   </span>
                   <span class="has-text-weight-bold">Qualidade do material:</span>
                 </span>
-              </label> 
+              </label>
             </div>
             <div class="field-body">
               <div class="field">
                 <div class="control">
                   <label class="radio">
-                    <input type="radio" name="quality-answer">
+                    <input value="1" type="radio" name="quality-answer" (change)="setQuality($event)">
                     1
                   </label>
                   <label class="radio">
-                    <input type="radio" name="quality-answer">
+                    <input value="2" type="radio" name="quality-answer" (change)="setQuality($event)">
                     2
                   </label>
                   <label class="radio">
-                    <input type="radio" name="quality-answer">
+                    <input value="3" type="radio" name="quality-answer" (change)="setQuality($event)">
                     3
                   </label>
                   <label class="radio">
-                    <input type="radio" name="quality-answer">
+                    <input value="4" type="radio" name="quality-answer" (change)="setQuality($event)">
                     4
                   </label>
                   <label class="radio">
-                    <input type="radio" name="quality-answer">
+                    <input value="5" type="radio" name="quality-answer" (change)="setQuality($event)">
                     5
                   </label>
                 </div>
@@ -134,29 +134,29 @@
                   </span>
                   <span class="has-text-weight-bold">Avaliação do docente:</span>
                 </span>
-              </label> 
+              </label>
             </div>
             <div class="field-body">
               <div class="field">
                 <div class="control">
                   <label class="radio">
-                    <input type="radio" name="professor-answer">
+                    <input value="1" type="radio" name="professor-answer" (change)="setProfessor($event)">
                     1
                   </label>
                   <label class="radio">
-                    <input type="radio" name="professor-answer">
+                    <input value="2" type="radio" name="professor-answer" (change)="setProfessor($event)">
                     2
                   </label>
                   <label class="radio">
-                    <input type="radio" name="professor-answer">
+                    <input value="3" type="radio" name="professor-answer" (change)="setProfessor($event)">
                     3
                   </label>
                   <label class="radio">
-                    <input type="radio" name="professor-answer">
+                    <input value="4" type="radio" name="professor-answer" (change)="setProfessor($event)">
                     4
                   </label>
                   <label class="radio">
-                    <input type="radio" name="professor-answer">
+                    <input value="5" type="radio" name="professor-answer" (change)="setProfessor($event)">
                     5
                   </label>
                 </div>
@@ -173,12 +173,12 @@
                   </span>
                   <span class="has-text-weight-bold">Tempo de dedicação:</span>
                 </span>
-              </label> 
+              </label>
             </div>
             <div class="field-body">
               <div class="field has-addons" id="hours-input">
                 <p class="control">
-                  <input class="input" type="number">
+                  <input class="input" type="number" formControlName="evaluation_dedication_time">
                 </p>
                 <p class="control">
                   <a class="button is-static">
@@ -192,14 +192,14 @@
           <div class="field">
             <label class="label">Diga o que achou:</label>
             <div class="control" id="description">
-              <textarea class="textarea"></textarea>
+              <textarea class="textarea" formControlName="evaluation_desc"></textarea>
             </div>
           </div>
 
           <div class="field">
             <div class="control">
               <label class="checkbox">
-                <input type="checkbox">
+                <input type="checkbox" formControlName="evaluation_owner">
                 Desejo avaliar de forma anônima
               </label>
             </div>
@@ -207,13 +207,13 @@
 
           <div class="field is-grouped" id="buttons">
             <div class="control">
-              <button class="button is-info">Avaliar</button>
+              <button class="button is-info" (click)="evaluate()">Avaliar</button>
             </div>
             <div class="control">
               <button class="button is-light" routerLink="../feed" routerLinkActive="active">Cancelar</button>
             </div>
           </div>
-          
+
         </div>
       </div>
     </div>
