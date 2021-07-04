@@ -38,6 +38,26 @@ export class SubjectEffects {
     { dispatch: false },
   );
 
+  evaluationsRequested$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SubjectActions.subjectActionTypes.evaluationsRequested),
+      switchMap((action) => {
+        return from(this.subjectService.evaluations(action.userId, action.subjectId, action.token)).pipe(
+          map((evaluations) => SubjectActions.evaluationsCompleted({ evaluations })),
+          catchError(error => of(SubjectActions.subjectError({ error }))),
+        );
+      }),
+    ),
+  );
+
+  evaluationsCompleted$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(SubjectActions.subjectActionTypes.evaluationsCompleted),
+      ),
+    { dispatch: false },
+  );
+
   subjectError$ = createEffect(
     () =>
       this.actions$.pipe(
