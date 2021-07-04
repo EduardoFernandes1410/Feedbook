@@ -1,0 +1,5 @@
+*.pyc
+*.old
+.vscode
+*.png
+*.jpg
