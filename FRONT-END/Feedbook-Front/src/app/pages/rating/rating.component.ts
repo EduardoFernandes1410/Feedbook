@@ -47,7 +47,7 @@ export class RatingComponent implements OnInit {
       professorEvaluation: [null, [Validators.required]],
       dedicationTime: [null, [Validators.required]],
       desc: ['', [Validators.required]],
-      owner: ["augustinho", []],
+      owner: [null, []],
     });
   }
 
@@ -55,7 +55,11 @@ export class RatingComponent implements OnInit {
   public async evaluate() {
     if (this.ratingForm.valid) {
       this.loggedUser = await this.store.select(getLoggedUser).pipe(first()).toPromise();
-
+      if(this.owner.value === true ){
+        this.owner.setValue('Anônimo')
+      }else{
+        this.owner.setValue(this.loggedUser.user.name + ' ' + this.loggedUser.user.surname);
+      }
       this.store.dispatch(evaluateRequested({ userId: this.loggedUser.user.id, subjectId: this.subjectId, evaluation: this.ratingForm.value, token: this.loggedUser.token }));
     } else {
       this.ratingForm.markAllAsTouched();

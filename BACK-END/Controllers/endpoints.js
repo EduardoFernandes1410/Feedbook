@@ -183,7 +183,6 @@ function registerEndpoints(app, dbController, authController) {
             res.status(400).send({ ERROR_KEY: AUTH_FAILURE_MSG })
             return
         }
-        console.log(reqData.userId);
         try {
             const q = await Subject.getAllSubjects(dbController);
             var subjectsArr = Array();

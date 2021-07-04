@@ -16,7 +16,7 @@ export const evaluateRequested = createAction(subjectActionTypes.evaluateRequest
 export const evaluateCompleted = createAction(subjectActionTypes.evaluateCompleted);
 export const evaluationsRequested = createAction(subjectActionTypes.evaluationsRequested, props<{ userId: number, subjectId: number, token: string }>());
 export const evaluationsCompleted = createAction(subjectActionTypes.evaluationsCompleted, props<{ evaluations: EvaluationData[] }>());
-export const evaluationVoteRequested = createAction(subjectActionTypes.evaluationVoteRequested, props<{ userId: number, evaluationId: string, voteType: string, token: string }>());
+export const evaluationVoteRequested = createAction(subjectActionTypes.evaluationVoteRequested, props<{ userId: number, evaluationId: string, voteType: number, token: string }>());
 export const evaluationVoteCompleted = createAction(subjectActionTypes.evaluationVoteCompleted);
 export const subjectError = createAction(subjectActionTypes.subjectError, props<{ error: any }>());
 

@@ -28,6 +28,7 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
     keys: [
       { auth: ['loggedUser'] },
       { feed: ['subjectList'] },
+      { subject: ['evaluations']},
     ],
     rehydrate: true,
   })(reducer);

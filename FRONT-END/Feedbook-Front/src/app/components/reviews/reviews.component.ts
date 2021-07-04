@@ -32,12 +32,12 @@ export class ReviewsComponent implements OnInit, OnDestroy {
 
   public upVote(item: EvaluationData){
     if(item.evaluationUpvoted || item.evaluationDownvoted) { return; }
-    this.store.dispatch(evaluationVoteRequested({ userId: this.loggedUser.user.id, evaluationId: item.evaluationId, voteType: 'up', token: this.loggedUser.token }));
+    this.store.dispatch(evaluationVoteRequested({ userId: this.loggedUser.user.id, evaluationId: item.evaluationId, voteType: 1, token: this.loggedUser.token }));
   }
 
   public downVote(item: EvaluationData){
     if(item.evaluationUpvoted || item.evaluationDownvoted) { return; }
-    this.store.dispatch(evaluationVoteRequested({ userId: this.loggedUser.user.id, evaluationId: item.evaluationId, voteType: 'down', token: this.loggedUser.token }));
+    this.store.dispatch(evaluationVoteRequested({ userId: this.loggedUser.user.id, evaluationId: item.evaluationId, voteType: -1, token: this.loggedUser.token }));
   }
 
   async ngOnInit() {

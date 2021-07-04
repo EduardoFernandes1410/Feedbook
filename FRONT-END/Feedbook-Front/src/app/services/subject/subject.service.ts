@@ -32,7 +32,7 @@ export class SubjectService {
     return res;
   }
 
-  public async evaluationVote(userId: number, evaluationId: string, voteType: string, token: string): Promise<any> {
+  public async evaluationVote(userId: number, evaluationId: string, voteType: number, token: string): Promise<any> {
     const endpoint = SubjectEndpoints.evaluationVote();
     const res = await this.httpClient.post<any>(endpoint, { userId, evaluationId, type: voteType, token }).pipe(first()).toPromise();
     return res;
