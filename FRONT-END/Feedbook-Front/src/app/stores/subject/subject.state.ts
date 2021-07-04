@@ -1,9 +1,9 @@
-import { Evaluation } from './../../models/subject';
+import { Evaluation, EvaluationData } from './../../models/subject';
 import { SubjectList, SubjectItem } from '../../models/feed';
 import { UserData } from '../../models/auth';
 
 export interface SubjectState {
-  evaluations: Evaluation[];
+  evaluations: EvaluationData[];
   isLoading: boolean;
   error: any;
 }

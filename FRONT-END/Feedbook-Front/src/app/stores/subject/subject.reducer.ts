@@ -8,6 +8,8 @@ const reducer = createReducer(
   on(SubjectActions.evaluateCompleted, (state) => ({ ...state, isLoading: false })),
   on(SubjectActions.evaluationsRequested, state => ({ ...state, isLoading: true })),
   on(SubjectActions.evaluationsCompleted, (state, { evaluations }) => ({ ...state, evaluations, isLoading: false })),
+  on(SubjectActions.evaluationVoteRequested, state => ({ ...state, isLoading: true })),
+  on(SubjectActions.evaluationVoteCompleted, (state) => ({ ...state, isLoading: false })),
   on(SubjectActions.subjectError, state => ({ ...state, isLoading: false })),
 );
 

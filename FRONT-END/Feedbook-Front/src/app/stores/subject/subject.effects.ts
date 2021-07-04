@@ -58,6 +58,26 @@ export class SubjectEffects {
     { dispatch: false },
   );
 
+  evaluationVoteRequested$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SubjectActions.subjectActionTypes.evaluationVoteRequested),
+      switchMap((action) => {
+        return from(this.subjectService.evaluationVote(action.userId, action.evaluationId, action.voteType, action.token)).pipe(
+          map(() => SubjectActions.evaluationVoteCompleted()),
+          catchError(error => of(SubjectActions.subjectError({ error }))),
+        );
+      }),
+    ),
+  );
+
+  evaluationVoteCompleted$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(SubjectActions.subjectActionTypes.evaluationVoteCompleted),
+      ),
+    { dispatch: false },
+  );
+
   subjectError$ = createEffect(
     () =>
       this.actions$.pipe(
