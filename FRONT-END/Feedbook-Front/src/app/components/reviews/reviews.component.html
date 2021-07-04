@@ -2,17 +2,17 @@
   <div class="modal-background" (click)="close()"></div>
   <div class="modal-content">
     <div class="box">
-      
-      <article class="media">
+
+      <article class="media" *ngFor="let item of (evaluations$ | async)">
         <!-- Upvote button -->
         <figure class="media-left">
-          <span class="icon vote vote-button up is-medium">
+          <span class="icon vote vote-button up is-medium" [ngClass]="{'selected': item.evaluation_upvoted}" (click)="upVote(item)">
             <i class="fas fa-arrow-circle-up fa-lg"></i>
           </span>
           <span class="icon vote is-medium">
-            <p class="has-text-weight-medium">3</p>
+            <p class="has-text-weight-medium">{{ item.evaluation_upvote_count - item.evaluation_downvote_count }}</p>
           </span>
-          <span class="icon vote vote-button down is-medium">
+          <span class="icon vote vote-button down is-medium" [ngClass]="{'selected': item.evaluation_downvoted}" (click)="downVote(item)">
             <i class="fas fa-arrow-circle-down fa-lg"></i>
           </span>
         </figure>
@@ -20,9 +20,9 @@
         <div class="media-content">
           <div class="content">
             <p>
-              <strong>Alan Turing</strong>
+              <strong>{{ item.evaluation_owner }}</strong>
               <br>
-              Adorei essa matéria, o professor é muito charmoso e carismático!
+              {{ item.evaluation_desc }}
             </p>
           </div>
           <nav class="level is-mobile">
@@ -32,7 +32,7 @@
                   <span class="icon has-text-primary">
                     <i class="fas fa-star"></i>
                   </span>
-                  <span>4</span>
+                  <span>{{ item.general_evaluation }}</span>
                 </span>
               </a>
               <a class="level-item">
@@ -40,7 +40,7 @@
                   <span class="icon has-text-danger">
                     <i class="fas fa-lightbulb"></i>
                   </span>
-                  <span>3</span>
+                  <span>{{ item.evaluation_content_complexity }}</span>
                 </span>
               </a>
               <a class="level-item">
@@ -48,7 +48,7 @@
                   <span class="icon has-text-warning">
                     <i class="fas fa-book"></i>
                   </span>
-                  <span>5</span>
+                  <span>{{ item.evaluation_material_quality }}</span>
                 </span>
               </a>
               <a class="level-item">
@@ -56,7 +56,7 @@
                   <span class="icon has-text-success">
                     <i class="fas fa-graduation-cap"></i>
                   </span>
-                  <span>5</span>
+                  <span>{{ item.evaluation_professor_evaluation }}</span>
                 </span>
               </a>
               <a class="level-item">
@@ -64,158 +64,13 @@
                   <span class="icon has-text-link">
                     <i class="fas fa-clock"></i>
                   </span>
-                  <span>5 hrs/sem</span>
+                  <span>{{ item.evaluation_dedication_time }} hrs/sem</span>
                 </span>
               </a>
             </div>
           </nav>
         </div>
       </article>
-
-      <article class="media">
-        <!-- Upvote button -->
-        <figure class="media-left">
-          <span class="icon vote vote-button up is-medium">
-            <i class="fas fa-arrow-circle-up fa-lg"></i>
-          </span>
-          <span class="icon vote is-medium">
-            <p class="has-text-weight-medium">1</p>
-          </span>
-          <span class="icon vote vote-button down is-medium">
-            <i class="fas fa-arrow-circle-down fa-lg"></i>
-          </span>
-        </figure>
-        <!-- Content -->
-        <div class="media-content">
-          <div class="content">
-            <p>
-              <strong>Albert Einstein</strong>
-              <br>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
-            </p>
-          </div>
-          <nav class="level is-mobile">
-            <div class="level-left">
-              <a class="level-item">
-                <span class="icon-text">
-                  <span class="icon has-text-primary">
-                    <i class="fas fa-star"></i>
-                  </span>
-                  <span>3</span>
-                </span>
-              </a>
-              <a class="level-item">
-                <span class="icon-text">
-                  <span class="icon has-text-danger">
-                    <i class="fas fa-lightbulb"></i>
-                  </span>
-                  <span>1</span>
-                </span>
-              </a>
-              <a class="level-item">
-                <span class="icon-text">
-                  <span class="icon has-text-warning">
-                    <i class="fas fa-book"></i>
-                  </span>
-                  <span>5</span>
-                </span>
-              </a>
-              <a class="level-item">
-                <span class="icon-text">
-                  <span class="icon has-text-success">
-                    <i class="fas fa-graduation-cap"></i>
-                  </span>
-                  <span>2</span>
-                </span>
-              </a>
-              <a class="level-item">
-                <span class="icon-text">
-                  <span class="icon has-text-link">
-                    <i class="fas fa-clock"></i>
-                  </span>
-                  <span>6 hrs/sem</span>
-                </span>
-              </a>
-            </div>
-          </nav>
-        </div>
-      </article>
-
-      <article class="media">
-        <!-- Upvote button -->
-        <figure class="media-left">
-          <span class="icon vote vote-button up is-medium">
-            <i class="fas fa-arrow-circle-up fa-lg"></i>
-          </span>
-          <span class="icon vote is-medium">
-            <p class="has-text-weight-medium">-2</p>
-          </span>
-          <span class="icon vote vote-button down is-medium">
-            <i class="fas fa-arrow-circle-down fa-lg"></i>
-          </span>
-        </figure>
-        <!-- Content -->
-        <div class="media-content">
-          <div class="content">
-            <p>
-              <strong>Isaac Newton</strong>
-              <br>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
-            </p>
-          </div>
-          <nav class="level is-mobile">
-            <div class="level-left">
-              <a class="level-item">
-                <span class="icon-text">
-                  <span class="icon has-text-primary">
-                    <i class="fas fa-star"></i>
-                  </span>
-                  <span>4</span>
-                </span>
-              </a>
-              <a class="level-item">
-                <span class="icon-text">
-                  <span class="icon has-text-danger">
-                    <i class="fas fa-lightbulb"></i>
-                  </span>
-                  <span>5</span>
-                </span>
-              </a>
-              <a class="level-item">
-                <span class="icon-text">
-                  <span class="icon has-text-warning">
-                    <i class="fas fa-book"></i>
-                  </span>
-                  <span>3</span>
-                </span>
-              </a>
-              <a class="level-item">
-                <span class="icon-text">
-                  <span class="icon has-text-success">
-                    <i class="fas fa-graduation-cap"></i>
-                  </span>
-                  <span>5</span>
-                </span>
-              </a>
-              <a class="level-item">
-                <span class="icon-text">
-                  <span class="icon has-text-link">
-                    <i class="fas fa-clock"></i>
-                  </span>
-                  <span>1 hrs/sem</span>
-                </span>
-              </a>
-            </div>
-          </nav>
-        </div>
-      </article>
-
-
-
-
 
     </div>
   </div>
