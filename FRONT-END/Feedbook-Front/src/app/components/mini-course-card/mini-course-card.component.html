@@ -5,9 +5,9 @@
       {{ subject.subjectCod + '-' + subject.subjectName }}
     </p>
     <p class="subtitle">
-      <figure class="image is-32x32">
-        <img class="is-rounded" src="assets/course-card/avatar.jpeg">
-      </figure>
+      <figure class="image is-32x32" *ngIf=subject.professorImgUrl>
+        <img class="is-rounded" [src]="sanitizeImageUrl(subject.professorImgUrl)">
+      </figure> 
       <span>{{ (subject.professorName && subject.professorName !== 'NULL') ? subject.professorName : 'Sem professor' }}</span>
     </p>
 

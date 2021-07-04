@@ -64,10 +64,10 @@ class Subject {
 
         var query = mysql.format("search_field LIKE ?", "%" + name + "%");
 
-        const suffix = name.split(" ");
-        for (var value of suffix) {
-            query += mysql.format(" OR search_field LIKE ?", "%" + value + "%");
-        }
+        // const suffix = name.split(" ");
+        // for (var value of suffix) {
+        //     query += mysql.format(" OR search_field LIKE ?", "%" + value + "%");
+        // }
 
         const subjectData = await dbController.select(SUBJECT_TABLE, SUBJECT_DATA_COLUMNS, query);
         return await Subject.subjectFromData(subjectData, dbController);

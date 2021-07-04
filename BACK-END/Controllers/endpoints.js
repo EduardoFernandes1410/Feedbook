@@ -197,15 +197,16 @@ function registerEndpoints(app, dbController, authController) {
                     "subjectCod": e.cod,
                     "subjectName": e.name,
                     "evaluationsCount": e.evaluations_count,
-                    "userEvaluatedSubject": Subject.checkEvaluatedByUser(dbController, reqData.userId, e.id)
+                    "userEvaluatedSubject": await Subject.checkEvaluatedByUser(dbController, reqData.userId, e.id)
                 });
             };
 
             subjectsArr.sort(function(a, b) {
-                return a[reqData.orderBy] > b[reqData.orderBy];
+                return -a[reqData.orderBy] + b[reqData.orderBy];
             });
 
-            res.send({ "subjects": subjectsArr.reverse() });
+
+            res.send({ "subjects": subjectsArr });
             console.log("Subjects have been retrieved by order.")
             return
         } catch {
