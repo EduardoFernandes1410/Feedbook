@@ -41,7 +41,7 @@
         <div class="field">
           <p class="control">
             <!-- <button class="button is-info" routerLink="../feed" routerLinkActive="active" (click)="login()"> -->
-            <button class="button is-info" (click)="login()">
+            <button class="button is-info" (click)="login()" [disabled]="!loginForm.valid">
               Login
             </button>
           </p>

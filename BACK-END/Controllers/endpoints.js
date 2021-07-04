@@ -167,7 +167,7 @@ function registerEndpoints(app, dbController, authController) {
                 return -(a["evaluationUpvoteCount"] - a["evaluationDownvoteCount"]) + (b["evaluationUpvoteCount"] - b["evaluationUpvoteCount"]);
             });
 
-            res.send({ "evaluations": evaluationsArr }); // falta retornar subject
+            res.send({ "evaluations": evaluationsArr });
             console.log(`All subject ${reqData.subjectId} evaluations have been retrieved.`)
             return
         } catch {

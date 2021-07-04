@@ -207,13 +207,12 @@
 
           <div class="field is-grouped" id="buttons">
             <div class="control">
-              <button class="button is-info" (click)="evaluate()">Avaliar</button>
+              <button class="button is-info" (click)="evaluate()" [disabled]="!ratingForm.valid" >Avaliar</button>
             </div>
             <div class="control">
-              <button class="button is-light" routerLink="../feed" routerLinkActive="active">Cancelar</button>
+              <button class="button is-light" routerLink="../../feed" routerLinkActive="active">Cancelar</button>
             </div>
           </div>
-
         </div>
       </div>
     </div>

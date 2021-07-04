@@ -64,7 +64,7 @@
 
         <div class="field is-grouped">
           <div class="control">
-            <button class="button is-info" (click)="update()">Salvar</button>
+            <button class="button is-info" (click)="update()" [disabled]="!updateForm.valid" >Salvar</button>
           </div>
           <div class="control">
             <button class="button is-light" routerLink="../feed" routerLinkActive="active">Cancelar</button>
