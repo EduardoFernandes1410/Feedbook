@@ -65,7 +65,36 @@ Este arquivo contém as instruções e especificações da API Backend do projet
     }
     ```
 
-* ### **Configurações** - 
+* ### **Configurações** - /user/update
+    Altera os dados do usuário.
+    Json a ser enviado na requisição:
+    ```json
+    {
+        "token": ...,
+        "user":
+        {
+            "email": ...,
+            "id":  ...,
+            "name": ..,
+            "surname": ...,
+            "password": (opcional),
+        }
+    }
+    ```
+
+    Json de resposta (sucesso):
+    ```json
+    {
+        "token": ...,
+        "user":
+        {
+            "email": ...,
+            "id":  ...,
+            "name": ..,
+            "surname": ...
+        }
+    }
+
 
 * ### **Feed principal** - /feed/all
     Retorna todas as disciplinas cadastradas, ordenadas por alguma chave.
@@ -142,6 +171,7 @@ Este arquivo contém as instruções e especificações da API Backend do projet
     ```
 
 * ### **Avaliações de uma disciplina** - /subject/evaluations
+    Retorna todas as avaliações de uma disciplina.
 
     Json a ser enviado na requisição:
     ```json
@@ -158,15 +188,47 @@ Este arquivo contém as instruções e especificações da API Backend do projet
         "evaluation": 
         [
             {
+                "evaluationId": ...,
+                "evaluationOwner": ...,
+                "evaluationDedicationTime": ...,
+                "evaluationMaterialQuality": ...,
+                "evaluationProfessorEvaluation": ...,
+                "evaluationContentComplexity": ...,
+                "evaluationGeneral": ...,
+                "evaluationDesc": ...,
+                "evaluationUpvoteCount": ...,
+                "evaluationDownvoteCount": ...,
+                "evaluationUpvoted": ...,
+                "evaluationDownvoted": ...,
             },
             ...
         ]
     }
     ```
 
-
 * ### **Postar uma avaliação** - /subject/evaluate
+    Posta uma avaliação no sistema.
 
+    Json a ser enviado na requisição:
+    ```json
+    {
+        "userId": ...,
+        "subjectId": ...,
+        "token": ...,
+        "evaluation":
+        {
+            "owner": ...,
+            "dedicationTime": ...,
+            "materialQuality": ...,
+            "professorEvaluation": ...,
+            "contentComplexity": ...,
+            "generalEvaluation": ...,
+            "desc": ...
+        }
+    }
+    ```
+
+    Essa requisição não retorna nenhum dado.
 ### **Json de erro**
 
 ```json
