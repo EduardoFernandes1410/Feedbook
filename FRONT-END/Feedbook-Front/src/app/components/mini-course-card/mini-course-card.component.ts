@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { SubjectItem } from './../../models/feed';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-mini-course-card',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mini-course-card.component.scss']
 })
 export class MiniCourseCardComponent implements OnInit {
+
+  @Input() subject: SubjectItem;
 
   constructor() { }
 

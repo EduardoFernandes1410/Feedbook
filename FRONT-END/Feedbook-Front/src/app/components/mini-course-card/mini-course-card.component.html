@@ -2,13 +2,13 @@
   <div class="card-content">
     <!-- Course name and professor -->
     <p class="title">
-      DCC 321 - Computers
+      {{ subject.subjectCod + '-' + subject.subjectName }}
     </p>
     <p class="subtitle">
       <figure class="image is-32x32">
         <img class="is-rounded" src="assets/course-card/avatar.jpeg">
       </figure>
-      <span>Arthur de Brito Bonifácio</span>
+      <span>{{ (subject.professorName && subject.professorName !== 'NULL') ? subject.professorName : 'Sem professor' }}</span>
     </p>
 
     <!-- Ratings -->
@@ -16,31 +16,31 @@
       <span class="icon has-text-primary">
         <i class="fas fa-star"></i>
       </span>
-      <span>4.9</span>
+      <span>{{ subject.meanGeneral }}</span>
     </span>
     <span class="icon-text">
       <span class="icon has-text-danger">
         <i class="fas fa-lightbulb"></i>
       </span>
-      <span>2.5</span>
+      <span>{{ subject.meanContentComplexity }}</span>
     </span>
     <span class="icon-text">
       <span class="icon has-text-warning">
         <i class="fas fa-book"></i>
       </span>
-      <span>4.9</span>
+      <span>{{ subject.meanMaterialQuality }}</span>
     </span>
     <span class="icon-text">
       <span class="icon has-text-success">
         <i class="fas fa-graduation-cap"></i>
       </span>
-      <span>5.0</span>
+      <span>{{ subject.meanProfessorEvaluation }}</span>
     </span>
     <span class="icon-text">
       <span class="icon has-text-link">
         <i class="fas fa-clock"></i>
       </span>
-      <span>5 hrs/sem</span>
+      <span>{{ subject.meanDedicationTime }} hrs/sem</span>
     </span>
   </div>
 </div>
