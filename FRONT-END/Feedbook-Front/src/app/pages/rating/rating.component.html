@@ -4,7 +4,7 @@
   <div id="rating-form">
     <div class="columns">
       <div class="column column is-6-fullhd is-offset-3-fullhd is-8-desktop is-offset-2-desktop is-10-tablet is-offset-1-tablet">
-        <app-mini-course-card></app-mini-course-card>
+        <app-mini-course-card *ngIf="subject" [subject]="subject"></app-mini-course-card>
 
         <!-- Rating Form -->
         <div id="rating-form-body" [formGroup]="ratingForm">

@@ -1,3 +1,4 @@
+import { SubjectItem } from './../../models/feed';
 import { first } from 'rxjs/operators';
 import { getLoggedUser } from './../../stores/auth/auth.selectors';
 import { UserData } from './../../models/auth';
@@ -7,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { evaluateRequested } from 'src/app/stores/subject/subject.actions';
+import { getSubjectList } from 'src/app/stores/feed/feed.selectors';
 
 @Component({
   selector: 'app-rating',
@@ -18,6 +20,7 @@ export class RatingComponent implements OnInit {
   public ratingForm: FormGroup;
   public loggedUser: UserData;
   public subjectId: number;
+  public subject: SubjectItem;
 
   get general_evaluation() { return (this.ratingForm as FormGroup).controls.general_evaluation; }
   get evaluation_content_complexity() { return (this.ratingForm as FormGroup).controls.evaluation_content_complexity; }
@@ -73,9 +76,12 @@ export class RatingComponent implements OnInit {
     this.evaluation_professor_evaluation.setValue(Number(event.target.value));
   }
 
-  public ngOnInit(): void {
-    this.subjectId = this.activatedRoute.snapshot.params.id;
+  public async ngOnInit(): Promise<void> {
     this.initForm();
+    this.subjectId = this.activatedRoute.snapshot.params.id;
+    const subjectList = await this.store.select(getSubjectList).pipe(first()).toPromise();
+    this.subject = subjectList.subjects.find(subject => subject.subjectId === this.subjectId);
+    console.log(this.subject);
   }
 
 }
