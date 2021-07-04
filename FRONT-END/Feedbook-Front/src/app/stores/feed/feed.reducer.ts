@@ -7,7 +7,7 @@ const reducer = createReducer(
   on(FeedActions.subjectListRequested, state => ({ ...state, isLoading: true })),
   on(FeedActions.subjectListCompleted, (state, { subjectList }) => ({ ...state, subjectList, isLoading: false })),
   on(FeedActions.getSubjectRequested, state => ({ ...state, isLoading: true })),
-  on(FeedActions.getSubjectCompleted, (state, { subject }) => ({ ...state, subjectItem: subject, isLoading: false })),
+  on(FeedActions.getSubjectCompleted, (state, { subject }) => ({ ...state, subjectList: subject, isLoading: false })),
   on(FeedActions.feedError, state => ({ ...state, isLoading: false })),
 );
 

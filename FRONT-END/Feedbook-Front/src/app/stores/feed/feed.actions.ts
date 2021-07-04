@@ -10,10 +10,10 @@ export const feedActionTypes = {
   feedError: type('[Feed] -Feed error-'),
 };
 
-export const subjectListRequested = createAction(feedActionTypes.subjectListRequested, props<{ orderBy: string }>());
+export const subjectListRequested = createAction(feedActionTypes.subjectListRequested, props<{ orderBy: string, token: string }>());
 export const subjectListCompleted = createAction(feedActionTypes.subjectListCompleted, props<{ subjectList: SubjectList }>());
-export const getSubjectRequested = createAction(feedActionTypes.getSubjectRequested, props<{ query: string }>());
-export const getSubjectCompleted = createAction(feedActionTypes.getSubjectCompleted, props<{ subject: SubjectItem }>());
+export const getSubjectRequested = createAction(feedActionTypes.getSubjectRequested, props<{ query: string, token: string }>());
+export const getSubjectCompleted = createAction(feedActionTypes.getSubjectCompleted, props<{ subject: SubjectList }>());
 export const feedError = createAction(feedActionTypes.feedError, props<{ error: any }>());
 
 const all = union({
