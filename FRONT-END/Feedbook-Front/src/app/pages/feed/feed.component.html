@@ -5,7 +5,7 @@
   <div id="content-container">
     <!-- Sort-by selector -->
     <div class="field is-horizontal">
-      <label class="field-label label">Ordenar por: {{ orderBy }}</label>
+      <label class="field-label label">Ordenar por: </label>
       <div class="control has-icons-left">
         <div class="select">
           <select [(ngModel)]="orderBy" (change)="getSubjectList()">
@@ -24,15 +24,13 @@
     </div>
 
     <!-- Course cards -->
-    <div class="columns is-multiline">
-      <div class="column is-half-desktop is-full-tablet"><app-course-card></app-course-card></div>
-      <div class="column is-half-desktop is-full-tablet"><app-course-card></app-course-card></div>
-      <div class="column is-half-desktop is-full-tablet"><app-course-card></app-course-card></div>
-      <div class="column is-half-desktop is-full-tablet"><app-course-card></app-course-card></div>
-      <div class="column is-half-desktop is-full-tablet"><app-course-card></app-course-card></div>
+    <div class="columns is-multiline" *ngIf="(subjectList$ | async)">
+      <!-- <div class="column is-half-desktop is-full-tablet"><app-course-card (whenSeeEvaluations)="seeEvaluations($event)"></app-course-card></div> -->
+
+      <div class="column is-half-desktop is-full-tablet" *ngFor="let item of (subjectList$ | async).subjects"><app-course-card [subject]="item" (whenSeeEvaluations)="seeEvaluations($event)"></app-course-card></div>
     </div>
 
     <!-- Review modal -->
-    <app-reviews></app-reviews>
+    <app-reviews *ngIf="visible" [visible]="visible" (whenCloseEvaluations)="closedEvaluations($event)"></app-reviews>
   </div>
 </body>
