@@ -10,4 +10,12 @@ export class SubjectEndpoints {
     return `${this.base()}/evaluate`;
   }
 
+  public static evaluations(): string {
+    return `${this.base()}/evaluations`;
+  }
+
+  public static evaluationVote(): string {
+    return `${this.base()}/evaluate/vote`;
+  }
+
 }
