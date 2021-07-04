@@ -1,25 +1,29 @@
 .vote {
-  display: block;
-  text-align: center;
+    display: block;
+    text-align: center;
 }
 
 .vote-button:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .up:active {
-  color: hsl(207, 61%, 53%);
+    color: hsl(207, 61%, 53%);
 }
 
 .down:active {
-  color: hsl(348, 86%, 61%);
+    color: hsl(348, 86%, 61%);
 }
 
 .level-item {
-  cursor: default;
-  color: hsl(0, 0%, 4%);
+    cursor: default;
+    color: hsl(0, 0%, 4%);
 }
 
-.selected {
-  color: hsl(207, 61%, 53%) !important;
+.selected-up {
+    color: hsl(207, 61%, 53%) !important;
+}
+
+.selected-down {
+    color: hsl(348, 86%, 61%) !important;
 }

@@ -29,14 +29,22 @@ export class ConfigComponent implements OnInit {
     private store: Store<AppState>,
   ) { }
 
-  private initForm(): void {
+  private async initForm() {
+    this.loggedUser = await this.store.select(getLoggedUser).pipe(first()).toPromise();
+    // this.updateForm.value.id = this.loggedUser.user.id;
+    // this.updateForm.value.name = this.loggedUser.user.name;
+    // this.updateForm.value.surname = this.loggedUser.user.surname;
+    // this.updateForm.value.email = this.loggedUser.user.email;
+    // console.log(this.updateForm.value.id);
+
     // tslint:disable-next-line: deprecation
     this.updateForm = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      surname: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ufmg)\.br$/)]],
-      password: ['', [Validators.required]],
-      passwordConfirmation: ['', [Validators.required]],
+      name: [this.loggedUser.user.name, [Validators.required]],
+      surname: [this.loggedUser.user.surname, [Validators.required]],
+      email: [this.loggedUser.user.email, [Validators.required, Validators.pattern(/^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(ufmg)\.br$/)]],
+      password: ['' ],
+      passwordConfirmation: ['' ],
+      id: [this.loggedUser.user.id]
     },
     {
       validator: MustMatch('password', 'passwordConfirmation'),
@@ -45,8 +53,6 @@ export class ConfigComponent implements OnInit {
 
   public async update() {
     if (this.updateForm.valid) {
-      this.loggedUser = await this.store.select(getLoggedUser).pipe(first()).toPromise();
-
       this.store.dispatch(userUpdateRequested({ userData: this.updateForm.value, token: this.loggedUser.token }));
     } else {
       console.log(this.updateForm);
@@ -55,8 +61,10 @@ export class ConfigComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-    this.initForm();
+  async ngOnInit() {
+    await this.initForm();
+
+    
   }
 
 }

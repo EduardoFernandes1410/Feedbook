@@ -41,6 +41,7 @@ function registerEndpoints(app, dbController, authController) {
                 token: await authController.getToken(user)
             };
             res.status(200);
+            console.log("User logged.");
         } catch {
             console.error("Failed login attempt registered!");
             res.status(401);
@@ -71,6 +72,7 @@ function registerEndpoints(app, dbController, authController) {
                 token: await authController.getToken(newUser)
             };
             res.status(201);
+            console.log("User registered.");
         } catch (error) {
             console.error("Failed to register a new user!\nAn error happened: ", error);
             res.status(500);
@@ -82,6 +84,7 @@ function registerEndpoints(app, dbController, authController) {
     }
 
     async function doUpdate(req, res) {
+        console.log("Updating infos.")
         const reqBody = req.body;
         let resBody = {};
         res.type('json');
@@ -99,7 +102,10 @@ function registerEndpoints(app, dbController, authController) {
             user.changeName(reqBody.user.name);
             user.changeSurname(reqBody.user.surname);
             user.changeEmail(reqBody.user.email);
-            user.changePassword(reqBody.user.password);
+            if (reqBody.user.password !== '') {
+                user.changePassword(reqBody.user.password);
+
+            }
             await user.saveUpdates();
             resBody = {
                 user: {
@@ -158,7 +164,7 @@ function registerEndpoints(app, dbController, authController) {
             };
 
             evaluationsArr.sort(function(a, b) {
-                return -a[evaluationUpvoteCount] + b[evaluationUpvoteCount];
+                return -(a["evaluationUpvoteCount"] - a["evaluationDownvoteCount"]) + (b["evaluationUpvoteCount"] - b["evaluationUpvoteCount"]);
             });
 
             res.send({ "evaluations": evaluationsArr }); // falta retornar subject
@@ -343,7 +349,7 @@ function registerEndpoints(app, dbController, authController) {
     // Registering the endpoints
     app.post('/user/login', doLogin);
     app.post('/user/register', doRegister);
-    app.put('/user/update', doUpdate);
+    app.post('/user/update', doUpdate);
     app.post('/subject/evaluations', returnEvaluations);
     app.post('/feed/all', feedSubjects);
     app.post('/feed/search', doSearch);

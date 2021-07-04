@@ -6,13 +6,13 @@
       <article class="media" *ngFor="let item of (evaluations$ | async).evaluations">
         <!-- Upvote button -->
         <figure class="media-left">
-          <span class="icon vote vote-button up is-medium" [ngClass]="{'selected': item.evaluationUpvoted}" (click)="upVote(item)">
+          <span class="icon vote vote-button up is-medium" [ngClass]="{'selected-up': item.evaluationUpvoted}" (click)="upVote(item)">
             <i class="fas fa-arrow-circle-up fa-lg"></i>
           </span>
           <span class="icon vote is-medium">
             <p class="has-text-weight-medium">{{ item.evaluationUpvoteCount - item.evaluationDownvoteCount }}</p>
           </span>
-          <span class="icon vote vote-button down is-medium" [ngClass]="{'selected': item.evaluationDownvoted}" (click)="downVote(item)">
+          <span class="icon vote vote-button down is-medium" [ngClass]="{'selected-down': item.evaluationDownvoted}" (click)="downVote(item)">
             <i class="fas fa-arrow-circle-down fa-lg"></i>
           </span>
         </figure>
@@ -32,7 +32,7 @@
                   <span class="icon has-text-primary">
                     <i class="fas fa-star"></i>
                   </span>
-                  <span>{{ item.generalEvaluation }}</span>
+                  <span>{{ item.evaluationGeneral }}</span>
                 </span>
               </a>
               <a class="level-item">
