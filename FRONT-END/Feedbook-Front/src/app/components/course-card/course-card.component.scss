@@ -1,23 +1,30 @@
 .card {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 
 .subtitle {
-  padding-top: 10px;
-
-  figure {
-    display: inline-block;
-  }
-
-  span {
-    margin-left: 18px;
-    vertical-align: top;
-    height: 48px;
-    line-height: 48px;
-  }
+    padding-top: 10px;
+    figure {
+        display: inline-block;
+    }
+    span {
+        margin-left: 18px;
+        vertical-align: top;
+        height: 48px;
+        line-height: 48px;
+    }
 }
 
 .icon-text {
-  margin-bottom: 5px;
-  display: block;
+    margin-bottom: 5px;
+    display: block;
+}
+
+a.disabled {
+    pointer-events: none;
+    cursor: default;
+    color: gray;
+    span {
+        color: gray !important;
+    }
 }

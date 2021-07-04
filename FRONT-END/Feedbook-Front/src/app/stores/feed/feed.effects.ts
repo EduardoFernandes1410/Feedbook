@@ -23,7 +23,7 @@ export class FeedEffects {
     this.actions$.pipe(
       ofType(FeedActions.feedActionTypes.subjectListRequested),
       switchMap((action) => {
-        return from(this.feedService.subjectList(action.orderBy, action.token)).pipe(
+        return from(this.feedService.subjectList(action.orderBy, action.token, action.userId)).pipe(
           map(list => FeedActions.subjectListCompleted({ subjectList: list })),
           catchError(error => of(FeedActions.feedError({ error }))),
         );
@@ -43,7 +43,7 @@ export class FeedEffects {
     this.actions$.pipe(
       ofType(FeedActions.feedActionTypes.getSubjectRequested),
       switchMap((action) => {
-        return from(this.feedService.getSubject(action.query, action.token)).pipe(
+        return from(this.feedService.getSubject(action.query, action.token, action.userId)).pipe(
           map(subject => FeedActions.getSubjectCompleted({ subject })),
           catchError(error => of(FeedActions.feedError({ error }))),
         );
@@ -57,6 +57,7 @@ export class FeedEffects {
         ofType(FeedActions.feedActionTypes.getSubjectCompleted),
       ),
     { dispatch: false },
+    
   );
 
   feedError$ = createEffect(

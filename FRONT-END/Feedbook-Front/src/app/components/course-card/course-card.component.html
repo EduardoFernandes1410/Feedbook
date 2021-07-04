@@ -69,7 +69,7 @@
         <span>Ver avaliações</span>
       </span>
     </a>
-    <a class="card-footer-item" (click)="goToEvaluation()">
+    <a class="card-footer-item" (click)="goToEvaluation()" [class.disabled]="subject.userEvaluatedSubject" >
       <span class="icon-text">
         <span class="icon has-text-link">
           <i class="fas fa-plus"></i>

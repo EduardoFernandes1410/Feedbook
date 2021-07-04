@@ -20,15 +20,15 @@ export class FeedService {
     private store: Store<AppState>
   ) { }
 
-  public async subjectList(orderBy: string, token: string): Promise<SubjectList> {
+  public async subjectList(orderBy: string, token: string, userId: number): Promise<SubjectList> {
     const endpoint = FeedEndpoints.subjectList();
-    const res = await this.httpClient.post<SubjectList>(endpoint, { orderBy, token }, {}).pipe(first()).toPromise();
+    const res = await this.httpClient.post<SubjectList>(endpoint, { orderBy, token, userId }, {}).pipe(first()).toPromise();
     return res;
   }
 
-  public async getSubject(query: string, token: string): Promise<SubjectList> {
+  public async getSubject(query: string, token: string, userId: number): Promise<SubjectList> {
     const endpoint = FeedEndpoints.search();
-    const res = await this.httpClient.post<SubjectList>(endpoint, { query, token }).pipe(first()).toPromise();
+    const res = await this.httpClient.post<SubjectList>(endpoint, { query, token, userId}).pipe(first()).toPromise();
     return res;
   }
 

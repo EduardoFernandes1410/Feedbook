@@ -156,6 +156,11 @@ function registerEndpoints(app, dbController, authController) {
                     "evaluationDownvoted": e.downvoted,
                 });
             };
+
+            evaluationsArr.sort(function(a, b) {
+                return -a[evaluationUpvoteCount] + b[evaluationUpvoteCount];
+            });
+
             res.send({ "evaluations": evaluationsArr }); // falta retornar subject
             console.log(`All subject ${reqData.subjectId} evaluations have been retrieved.`)
             return
@@ -178,7 +183,7 @@ function registerEndpoints(app, dbController, authController) {
             res.status(400).send({ ERROR_KEY: AUTH_FAILURE_MSG })
             return
         }
-
+        console.log(reqData.userId);
         try {
             const q = await Subject.getAllSubjects(dbController);
             var subjectsArr = Array();

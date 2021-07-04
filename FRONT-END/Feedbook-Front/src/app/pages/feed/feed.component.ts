@@ -28,11 +28,11 @@ export class FeedComponent implements OnInit {
   ) {}
 
   public searchSubject(text: string){
-    this.store.dispatch(getSubjectRequested({ query: text, token: this.loggedUser.token }));
+    this.store.dispatch(getSubjectRequested({ query: text, token: this.loggedUser.token, userId : this.loggedUser.user.id }));
   }
 
   public getSubjectList(){
-    this.store.dispatch(subjectListRequested({ orderBy: this.orderBy, token: this.loggedUser.token }));
+    this.store.dispatch(subjectListRequested({ orderBy: this.orderBy, token: this.loggedUser.token , userId: this.loggedUser.user.id}));
   }
 
   public seeEvaluations(value: boolean){
@@ -48,7 +48,7 @@ export class FeedComponent implements OnInit {
   async ngOnInit() {
     this.subjectList$ = this.store.select(getSubjectList);
     this.loggedUser = await this.store.select(getLoggedUser).pipe(first()).toPromise();
-    this.store.dispatch(subjectListRequested({ orderBy: this.orderBy, token: this.loggedUser.token }));
+    this.store.dispatch(subjectListRequested({ orderBy: this.orderBy, token: this.loggedUser.token,  userId: this.loggedUser.user.id}));
     this.feedEffects.subjectListCompleted$.subscribe((data) => {
       console.log(data);
     });

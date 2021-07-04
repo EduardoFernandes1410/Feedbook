@@ -16,6 +16,7 @@ export class SubjectEffects {
     private subjectService: SubjectService,
     private store: Store<AppState>,
     private ngZone: NgZone,
+    private router: Router,
   ) { }
 
   evaluateRequested$ = createEffect(() =>
@@ -34,6 +35,11 @@ export class SubjectEffects {
     () =>
       this.actions$.pipe(
         ofType(SubjectActions.subjectActionTypes.evaluateCompleted),
+        tap(async () => {
+          this.ngZone.run(() => {
+            this.router.navigate(['/feed']);
+          });
+        }),
       ),
     { dispatch: false },
   );
