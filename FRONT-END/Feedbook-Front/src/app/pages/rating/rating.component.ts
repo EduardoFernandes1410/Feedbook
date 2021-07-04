@@ -22,13 +22,15 @@ export class RatingComponent implements OnInit {
   public subjectId: number;
   public subject: SubjectItem;
 
-  get general_evaluation() { return (this.ratingForm as FormGroup).controls.general_evaluation; }
-  get evaluation_content_complexity() { return (this.ratingForm as FormGroup).controls.evaluation_content_complexity; }
-  get evaluation_material_quality() { return (this.ratingForm as FormGroup).controls.evaluation_material_quality; }
-  get evaluation_professor_evaluation() { return (this.ratingForm as FormGroup).controls.evaluation_professor_evaluation; }
-  get evaluation_dedication_time() { return (this.ratingForm as FormGroup).controls.evaluation_dedication_time; }
-  get evaluation_desc() { return (this.ratingForm as FormGroup).controls.evaluation_desc; }
-  get evaluation_owner() { return (this.ratingForm as FormGroup).controls.evaluation_owner; }
+  get generalEvaluation() { return (this.ratingForm as FormGroup).controls.generalEvaluation; }
+  get contentComplexity() { return (this.ratingForm as FormGroup).controls.contentComplexity; }
+  get materialQuality() { return (this.ratingForm as FormGroup).controls.materialQuality; }
+  get professorEvaluation() { return (this.ratingForm as FormGroup).controls.professorEvaluation; }
+  get dedicationTime() { return (this.ratingForm as FormGroup).controls.dedicationTime; }
+  get desc() { return (this.ratingForm as FormGroup).controls.desc; }
+  get owner() { return (this.ratingForm as FormGroup).controls.owner; }
+  // get evaluation_owner() { return "augustinho"; }
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,15 +41,16 @@ export class RatingComponent implements OnInit {
 
   private initForm(): void {
     this.ratingForm = this.formBuilder.group({
-      general_evaluation: [null, [Validators.required]],
-      evaluation_content_complexity: [null, [Validators.required]],
-      evaluation_material_quality: [null, [Validators.required]],
-      evaluation_professor_evaluation: [null, [Validators.required]],
-      evaluation_dedication_time: [null, [Validators.required]],
-      evaluation_desc: ['', [Validators.required]],
-      evaluation_owner: [null, []],
+      generalEvaluation: [null, [Validators.required]],
+      contentComplexity: [null, [Validators.required]],
+      materialQuality: [null, [Validators.required]],
+      professorEvaluation: [null, [Validators.required]],
+      dedicationTime: [null, [Validators.required]],
+      desc: ['', [Validators.required]],
+      owner: ["augustinho", []],
     });
   }
+
 
   public async evaluate() {
     if (this.ratingForm.valid) {
@@ -61,19 +64,19 @@ export class RatingComponent implements OnInit {
   }
 
   public setOverall(event: any) {
-    this.general_evaluation.setValue(Number(event.target.value));
+    this.generalEvaluation.setValue(Number(event.target.value));
   }
 
   public setComplexity(event: any) {
-    this.evaluation_content_complexity.setValue(Number(event.target.value));
+    this.contentComplexity.setValue(Number(event.target.value));
   }
 
   public setQuality(event: any) {
-    this.evaluation_material_quality.setValue(Number(event.target.value));
+    this.materialQuality.setValue(Number(event.target.value));
   }
 
   public setProfessor(event: any) {
-    this.evaluation_professor_evaluation.setValue(Number(event.target.value));
+    this.professorEvaluation.setValue(Number(event.target.value));
   }
 
   public async ngOnInit(): Promise<void> {

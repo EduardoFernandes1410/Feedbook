@@ -75,7 +75,8 @@ Este arquivo contém as instruções e especificações da API Backend do projet
     ```json
     {
         "orderBy": key*,
-        "token": ...
+        "token": ...,
+        "userId": ...
     }
     ```
 

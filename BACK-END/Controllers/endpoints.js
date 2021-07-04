@@ -86,15 +86,15 @@ function registerEndpoints(app, dbController, authController) {
         let resBody = {};
         res.type('json');
         // Checking request token and denying service if invalid
-        if(! await authController.validateToken(reqBody.token)){
+        if (!await authController.validateToken(reqBody.token)) {
             console.error("User authentication failed: invalid token");
             res.status(403);
-            res.json({error: AUTH_FAILURE_MSG});
+            res.json({ error: AUTH_FAILURE_MSG });
             res.end();
             return;
         }
         // Retrieving user to modify and modifying the data
-        try{
+        try {
             let user = await User.getUserById(dbController, reqBody.user.id);
             user.changeName(reqBody.user.name);
             user.changeSurname(reqBody.user.surname);
@@ -112,11 +112,11 @@ function registerEndpoints(app, dbController, authController) {
                 token: await authController.getToken(user)
             };
             res.status(200);
-        }catch(error){
+        } catch (error) {
             console.error('Failed to update user!\nThe server encountered an error:', error);
             res.status(500);
-            resBody = {error: UNEXPECTED_ERROR_MSG};
-        }finally{
+            resBody = { error: UNEXPECTED_ERROR_MSG };
+        } finally {
             res.json(resBody);
             res.end();
         }
@@ -196,7 +196,8 @@ function registerEndpoints(app, dbController, authController) {
                     "meanGeneral": e.mean_general,
                     "subjectCod": e.cod,
                     "subjectName": e.name,
-                    "evaluationsCount": e.evaluations_count
+                    "evaluationsCount": e.evaluations_count,
+                    "userEvaluatedSubject": Subject.checkEvaluatedByUser(dbController, reqData.userId, e.id)
                 });
             };
 
@@ -258,6 +259,7 @@ function registerEndpoints(app, dbController, authController) {
     }
 
     async function doEvaluation(req, res) {
+        console.log("Recebendo avaliação.");
         const reqData = req.body;
         let resData = {};
         res.type('json');
@@ -269,6 +271,7 @@ function registerEndpoints(app, dbController, authController) {
         // auth check
         if (!await authController.validateToken(reqData.token)) {
             res.status(403).send({ ERROR_KEY: AUTH_FAILURE_MSG });
+            console.log("Token expired");
             return;
         }
         try {
@@ -286,30 +289,30 @@ function registerEndpoints(app, dbController, authController) {
             await Subject.userEvaluatedSubject(dbController, reqData.userId, reqData.subjectId, evaluation);
             res.status(200);
             resData = {};
-        } catch(error) {
+        } catch (error) {
             res.status(500);
-            resData = {error: UNEXPECTED_ERROR_MSG};
+            resData = { error: UNEXPECTED_ERROR_MSG };
             console.error("Error evaluating subject: ", error);
-        }finally{
+        } finally {
             res.json(resData);
             res.end();
         }
     }
 
-    async function doEvaluationVote(req, res){
+    async function doEvaluationVote(req, res) {
         const reqData = req.body;
         let resData = {};
         res.type('json');
         // Checking if the user is authenticated
-        if(! await authController.validateToken(reqData.token)){
+        if (!await authController.validateToken(reqData.token)) {
             res.status(403);
-            res.json({error: AUTH_FAILURE_MSG});
+            res.json({ error: AUTH_FAILURE_MSG });
             res.end();
             return;
         }
-        try{
+        try {
             // Checking if the evaluation type is valid
-            if(!Number.isInteger(reqData.type) && (reqData.type < -1 || reqData.type > 1)){
+            if (!Number.isInteger(reqData.type) && (reqData.type < -1 || reqData.type > 1)) {
                 console.error(`Invalid vote type "${reqData.type}" received from the requisition.\nThe vote type must be 1 for upvote, -1 for downvote and 0 for null!`);
                 throw Error("Invalid vote type received from the requisition.");
             }
@@ -321,12 +324,12 @@ function registerEndpoints(app, dbController, authController) {
             await Evaluation.processVote(dbController, reqData.userId, reqData.evaluationId, reqData.type);
             // Updating the count of up/down votes on the current evaluation
             await Evaluation.computeEvaluationVotes(dbController, currentEval.getId())
-            res.status(200);  
-        }catch(error){
+            res.status(200);
+        } catch (error) {
             console.error('Error evaluating subject: ', error);
-            resData = {error: UNEXPECTED_ERROR_MSG};
+            resData = { error: UNEXPECTED_ERROR_MSG };
             res.status(500);
-        }finally{
+        } finally {
             res.json(resData);
             res.end();
         }

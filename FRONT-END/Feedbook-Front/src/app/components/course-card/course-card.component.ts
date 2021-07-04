@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { SubjectItem } from 'src/app/models/feed';
 import { Store } from '@ngrx/store';
 import { evaluationsRequested } from 'src/app/stores/subject/subject.actions';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-course-card',
@@ -22,7 +23,12 @@ export class CourseCardComponent implements OnInit {
   constructor(
     private router: Router,
     private store: Store<AppState>,
+    private sanitizer: DomSanitizer
   ) { }
+  
+  sanitizeImageUrl(imageUrl: string): SafeUrl {
+      return this.sanitizer.bypassSecurityTrustUrl("http://" + imageUrl);
+  }
 
   public async seeEvaluations(){
     this.loggedUser = await this.store.select(getLoggedUser).pipe(first()).toPromise();
@@ -37,5 +43,8 @@ export class CourseCardComponent implements OnInit {
 
   ngOnInit() {
   }
+
+
+  
 
 }
