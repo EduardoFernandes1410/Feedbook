@@ -76,4 +76,4 @@ Sistema digital para feedback das disciplinas ofertadas pelo DCC-UFMG.
   - Implementar camada de controle do front-end [Arthur]
 
 ## Diagrama da Arquitetura
-![](Diagrama.png)
+![](Diagrama.jpeg)
