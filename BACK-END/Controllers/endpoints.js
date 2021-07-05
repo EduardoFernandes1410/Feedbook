@@ -164,7 +164,7 @@ function registerEndpoints(app, dbController, authController) {
             };
 
             evaluationsArr.sort(function(a, b) {
-                return -(a["evaluationUpvoteCount"] - a["evaluationDownvoteCount"]) + (b["evaluationUpvoteCount"] - b["evaluationUpvoteCount"]);
+                return -(a["evaluationUpvoteCount"] - a["evaluationDownvoteCount"]) + (b["evaluationUpvoteCount"] - b["evaluationDownvoteCount"]);
             });
 
             res.send({ "evaluations": evaluationsArr });
