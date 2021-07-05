@@ -31,6 +31,14 @@ Sistema digital para feedback das disciplinas ofertadas pelo DCC-UFMG.
 - Up/down vote nas avaliações públicas;
 - Identificação visual dos docentes;
 
+## Backlog do produto
+- Como usuário, eu gostaria de me cadastrar/entrar na plataforma
+- Como usuário, gostaria de poder alterar detalhes da minha conta como nome ou senha
+- Como usuário, eu gostaria de avaliar uma disciplina
+- Como usuário, eu gostaria de ver a lista de todas as disciplinas, ordenado por algum critério
+- Como usuário, eu gostaria de ver todas as avaliações de uma disciplina
+- Como usuário, eu gostaria de dar upvote/downvote em alguma avaliação
+
 ## Backlog do sprint - 02/06
 - Como usuário, eu gostaria de me cadastrar/entrar na plataforma
   - Criar tabela de usuários no BD [Augusto]
@@ -66,3 +74,6 @@ Sistema digital para feedback das disciplinas ofertadas pelo DCC-UFMG.
   - Implementar camada de controle do back-end [Pedro]
   - Implementar botão de upvote/downvote [Eduardo]
   - Implementar camada de controle do front-end [Arthur]
+
+## Diagrama da Arquitetura
+![](Diagrama.png)
