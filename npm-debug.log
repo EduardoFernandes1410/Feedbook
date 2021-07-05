@@ -1,0 +1,123 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'install', 'angular/cli' ]
+2 info using npm@3.5.2
+3 info using node@v4.2.6
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly fetchPackageMetaData angular/cli
+8 silly fetchOtherPackageData angular/cli
+9 silly cache add args [ 'angular/cli', null ]
+10 verbose cache add spec angular/cli
+11 silly cache add parsed spec Result {
+11 silly cache add   raw: 'angular/cli',
+11 silly cache add   scope: null,
+11 silly cache add   name: null,
+11 silly cache add   rawSpec: 'angular/cli',
+11 silly cache add   spec: 'github:angular/cli',
+11 silly cache add   type: 'hosted',
+11 silly cache add   hosted:
+11 silly cache add    { type: 'github',
+11 silly cache add      ssh: 'git@github.com:angular/cli.git',
+11 silly cache add      sshUrl: 'git+ssh://git@github.com/angular/cli.git',
+11 silly cache add      httpsUrl: 'git+https://github.com/angular/cli.git',
+11 silly cache add      gitUrl: 'git://github.com/angular/cli.git',
+11 silly cache add      shortcut: 'github:angular/cli',
+11 silly cache add      directUrl: 'https://raw.githubusercontent.com/angular/cli/master/package.json' } }
+12 verbose addRemoteGit caching angular/cli
+13 verbose addRemoteGit angular/cli is a repository hosted by github
+14 silly tryGitProto attempting to clone git://github.com/angular/cli.git
+15 silly tryClone cloning angular/cli via git://github.com/angular/cli.git
+16 verbose tryClone git-github-com-angular-cli-git-abc2a622 not in flight; caching
+17 info git [ 'clone',
+17 info git   '--template=/home/eduardo/.npm/_git-remotes/_templates',
+17 info git   '--mirror',
+17 info git   'git://github.com/angular/cli.git',
+17 info git   '/home/eduardo/.npm/_git-remotes/git-github-com-angular-cli-git-abc2a622' ]
+18 verbose git clone --template=/home/eduardo/.npm/_git-remotes/_templates --mirror git://github.com/angular/cli.git /home/eduardo/.npm/_git-remotes/git-github-com-angular-cli-git-abc2a622: Cloning into bare repository '/home/eduardo/.npm/_git-remotes/git-github-com-angular-cli-git-abc2a622'...
+18 verbose git clone --template=/home/eduardo/.npm/_git-remotes/_templates --mirror git://github.com/angular/cli.git /home/eduardo/.npm/_git-remotes/git-github-com-angular-cli-git-abc2a622: fatal: remote error:
+18 verbose git clone --template=/home/eduardo/.npm/_git-remotes/_templates --mirror git://github.com/angular/cli.git /home/eduardo/.npm/_git-remotes/git-github-com-angular-cli-git-abc2a622:   Repository not found.
+19 silly tryHTTPS attempting to clone git+https://github.com/angular/cli.git
+20 silly tryClone cloning angular/cli via git+https://github.com/angular/cli.git
+21 verbose tryClone git-https-github-com-angular-cli-git-7e325762 not in flight; caching
+22 info git [ 'clone',
+22 info git   '--template=/home/eduardo/.npm/_git-remotes/_templates',
+22 info git   '--mirror',
+22 info git   'https://github.com/angular/cli.git',
+22 info git   '/home/eduardo/.npm/_git-remotes/git-https-github-com-angular-cli-git-7e325762' ]
+23 verbose git clone --template=/home/eduardo/.npm/_git-remotes/_templates --mirror https://github.com/angular/cli.git /home/eduardo/.npm/_git-remotes/git-https-github-com-angular-cli-git-7e325762: Cloning into bare repository '/home/eduardo/.npm/_git-remotes/git-https-github-com-angular-cli-git-7e325762'...
+23 verbose git clone --template=/home/eduardo/.npm/_git-remotes/_templates --mirror https://github.com/angular/cli.git /home/eduardo/.npm/_git-remotes/git-https-github-com-angular-cli-git-7e325762: remote: Invalid username or password.
+23 verbose git clone --template=/home/eduardo/.npm/_git-remotes/_templates --mirror https://github.com/angular/cli.git /home/eduardo/.npm/_git-remotes/git-https-github-com-angular-cli-git-7e325762: fatal: Authentication failed for 'https://github.com/angular/cli.git/'
+24 silly trySSH attempting to clone git@github.com:angular/cli.git
+25 silly tryClone cloning angular/cli via git@github.com:angular/cli.git
+26 verbose tryClone git-github-com-angular-cli-git-05516032 not in flight; caching
+27 info git [ 'clone',
+27 info git   '--template=/home/eduardo/.npm/_git-remotes/_templates',
+27 info git   '--mirror',
+27 info git   'git@github.com:angular/cli.git',
+27 info git   '/home/eduardo/.npm/_git-remotes/git-github-com-angular-cli-git-05516032' ]
+28 error git clone --template=/home/eduardo/.npm/_git-remotes/_templates --mirror git@github.com:angular/cli.git /home/eduardo/.npm/_git-remotes/git-github-com-angular-cli-git-05516032: Cloning into bare repository '/home/eduardo/.npm/_git-remotes/git-github-com-angular-cli-git-05516032'...
+28 error git clone --template=/home/eduardo/.npm/_git-remotes/_templates --mirror git@github.com:angular/cli.git /home/eduardo/.npm/_git-remotes/git-github-com-angular-cli-git-05516032: Permission denied (publickey).
+28 error git clone --template=/home/eduardo/.npm/_git-remotes/_templates --mirror git@github.com:angular/cli.git /home/eduardo/.npm/_git-remotes/git-github-com-angular-cli-git-05516032: fatal: Could not read from remote repository.
+28 error git clone --template=/home/eduardo/.npm/_git-remotes/_templates --mirror git@github.com:angular/cli.git /home/eduardo/.npm/_git-remotes/git-github-com-angular-cli-git-05516032:
+28 error git clone --template=/home/eduardo/.npm/_git-remotes/_templates --mirror git@github.com:angular/cli.git /home/eduardo/.npm/_git-remotes/git-github-com-angular-cli-git-05516032: Please make sure you have the correct access rights
+28 error git clone --template=/home/eduardo/.npm/_git-remotes/_templates --mirror git@github.com:angular/cli.git /home/eduardo/.npm/_git-remotes/git-github-com-angular-cli-git-05516032: and the repository exists.
+29 silly fetchPackageMetaData Error: Command failed: git clone --template=/home/eduardo/.npm/_git-remotes/_templates --mirror git@github.com:angular/cli.git /home/eduardo/.npm/_git-remotes/git-github-com-angular-cli-git-05516032
+29 silly fetchPackageMetaData Cloning into bare repository '/home/eduardo/.npm/_git-remotes/git-github-com-angular-cli-git-05516032'...
+29 silly fetchPackageMetaData Permission denied (publickey).
+29 silly fetchPackageMetaData fatal: Could not read from remote repository.
+29 silly fetchPackageMetaData
+29 silly fetchPackageMetaData Please make sure you have the correct access rights
+29 silly fetchPackageMetaData and the repository exists.
+29 silly fetchPackageMetaData
+29 silly fetchPackageMetaData     at ChildProcess.exithandler (child_process.js:213:12)
+29 silly fetchPackageMetaData     at emitTwo (events.js:87:13)
+29 silly fetchPackageMetaData     at ChildProcess.emit (events.js:172:7)
+29 silly fetchPackageMetaData     at maybeClose (internal/child_process.js:821:16)
+29 silly fetchPackageMetaData     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+29 silly fetchPackageMetaData  error for angular/cli { [Error: Command failed: git clone --template=/home/eduardo/.npm/_git-remotes/_templates --mirror git@github.com:angular/cli.git /home/eduardo/.npm/_git-remotes/git-github-com-angular-cli-git-05516032
+29 silly fetchPackageMetaData Cloning into bare repository '/home/eduardo/.npm/_git-remotes/git-github-com-angular-cli-git-05516032'...
+29 silly fetchPackageMetaData Permission denied (publickey).
+29 silly fetchPackageMetaData fatal: Could not read from remote repository.
+29 silly fetchPackageMetaData
+29 silly fetchPackageMetaData Please make sure you have the correct access rights
+29 silly fetchPackageMetaData and the repository exists.
+29 silly fetchPackageMetaData ]
+29 silly fetchPackageMetaData   killed: false,
+29 silly fetchPackageMetaData   code: 128,
+29 silly fetchPackageMetaData   signal: null,
+29 silly fetchPackageMetaData   cmd: 'git clone --template=/home/eduardo/.npm/_git-remotes/_templates --mirror git@github.com:angular/cli.git /home/eduardo/.npm/_git-remotes/git-github-com-angular-cli-git-05516032' }
+30 silly rollbackFailedOptional Starting
+31 silly rollbackFailedOptional Finishing
+32 silly runTopLevelLifecycles Starting
+33 silly runTopLevelLifecycles Finishing
+34 silly install printInstalled
+35 verbose stack Error: Command failed: git clone --template=/home/eduardo/.npm/_git-remotes/_templates --mirror git@github.com:angular/cli.git /home/eduardo/.npm/_git-remotes/git-github-com-angular-cli-git-05516032
+35 verbose stack Cloning into bare repository '/home/eduardo/.npm/_git-remotes/git-github-com-angular-cli-git-05516032'...
+35 verbose stack Permission denied (publickey).
+35 verbose stack fatal: Could not read from remote repository.
+35 verbose stack
+35 verbose stack Please make sure you have the correct access rights
+35 verbose stack and the repository exists.
+35 verbose stack
+35 verbose stack     at ChildProcess.exithandler (child_process.js:213:12)
+35 verbose stack     at emitTwo (events.js:87:13)
+35 verbose stack     at ChildProcess.emit (events.js:172:7)
+35 verbose stack     at maybeClose (internal/child_process.js:821:16)
+35 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+36 verbose cwd /home/eduardo/Documents/UFMG/5 SEMESTRE/ENG SOFT/TP1/GIT/Feedbook
+37 error Linux 4.4.0-210-generic
+38 error argv "/usr/bin/nodejs" "/usr/bin/npm" "install" "angular/cli"
+39 error node v4.2.6
+40 error npm  v3.5.2
+41 error code 128
+42 error Command failed: git clone --template=/home/eduardo/.npm/_git-remotes/_templates --mirror git@github.com:angular/cli.git /home/eduardo/.npm/_git-remotes/git-github-com-angular-cli-git-05516032
+42 error Cloning into bare repository '/home/eduardo/.npm/_git-remotes/git-github-com-angular-cli-git-05516032'...
+42 error Permission denied (publickey).
+42 error fatal: Could not read from remote repository.
+42 error
+42 error Please make sure you have the correct access rights
+42 error and the repository exists.
+43 error If you need help, you may report this error at:
+43 error     <https://github.com/npm/npm/issues>
+44 verbose exit [ 1, true ]

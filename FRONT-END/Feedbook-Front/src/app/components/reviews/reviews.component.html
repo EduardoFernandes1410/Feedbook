@@ -1,0 +1,78 @@
+<div class="modal" [ngClass]="{'is-active': visible}">
+  <div class="modal-background" (click)="close()"></div>
+  <div class="modal-content">
+    <div class="box" *ngIf="(evaluations$ | async)">
+
+      <article class="media" *ngFor="let item of (evaluations$ | async).evaluations">
+        <!-- Upvote button -->
+        <figure class="media-left">
+          <span class="icon vote vote-button up is-medium" [ngClass]="{'selected-up': item.evaluationUpvoted}" (click)="upVote(item)">
+            <i class="fas fa-arrow-circle-up fa-lg"></i>
+          </span>
+          <span class="icon vote is-medium">
+            <p class="has-text-weight-medium">{{ item.evaluationUpvoteCount - item.evaluationDownvoteCount }}</p>
+          </span>
+          <span class="icon vote vote-button down is-medium" [ngClass]="{'selected-down': item.evaluationDownvoted}" (click)="downVote(item)">
+            <i class="fas fa-arrow-circle-down fa-lg"></i>
+          </span>
+        </figure>
+        <!-- Content -->
+        <div class="media-content">
+          <div class="content">
+            <p>
+              <strong>{{ item.evaluationOwner }}</strong>
+              <br>
+              {{ item.evaluationDesc }}
+            </p>
+          </div>
+          <nav class="level is-mobile">
+            <div class="level-left">
+              <a class="level-item">
+                <span class="icon-text">
+                  <span class="icon has-text-primary">
+                    <i class="fas fa-star"></i>
+                  </span>
+                  <span>{{ item.evaluationGeneral }}</span>
+                </span>
+              </a>
+              <a class="level-item">
+                <span class="icon-text">
+                  <span class="icon has-text-danger">
+                    <i class="fas fa-lightbulb"></i>
+                  </span>
+                  <span>{{ item.evaluationContentComplexity }}</span>
+                </span>
+              </a>
+              <a class="level-item">
+                <span class="icon-text">
+                  <span class="icon has-text-warning">
+                    <i class="fas fa-book"></i>
+                  </span>
+                  <span>{{ item.evaluationMaterialQuality }}</span>
+                </span>
+              </a>
+              <a class="level-item">
+                <span class="icon-text">
+                  <span class="icon has-text-success">
+                    <i class="fas fa-graduation-cap"></i>
+                  </span>
+                  <span>{{ item.evaluationProfessorEvaluation }}</span>
+                </span>
+              </a>
+              <a class="level-item">
+                <span class="icon-text">
+                  <span class="icon has-text-link">
+                    <i class="fas fa-clock"></i>
+                  </span>
+                  <span>{{ item.evaluationDedicationTime }} hrs/sem</span>
+                </span>
+              </a>
+            </div>
+          </nav>
+        </div>
+      </article>
+
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="close()"></button>
+</div>

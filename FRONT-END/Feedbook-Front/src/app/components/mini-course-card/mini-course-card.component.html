@@ -1,0 +1,46 @@
+<div class="card">
+  <div class="card-content">
+    <!-- Course name and professor -->
+    <p class="title">
+      {{ subject.subjectCod + '-' + subject.subjectName }}
+    </p>
+    <p class="subtitle">
+      <figure class="image is-32x32" *ngIf=subject.professorImgUrl>
+        <img class="is-rounded" [src]="sanitizeImageUrl(subject.professorImgUrl)">
+      </figure> 
+      <span>{{ (subject.professorName && subject.professorName !== 'NULL') ? subject.professorName : 'Sem professor' }}</span>
+    </p>
+
+    <!-- Ratings -->
+    <span class="icon-text">
+      <span class="icon has-text-primary">
+        <i class="fas fa-star"></i>
+      </span>
+      <span>{{ subject.meanGeneral.toFixed(2)  }}</span>
+    </span>
+    <span class="icon-text">
+      <span class="icon has-text-danger">
+        <i class="fas fa-lightbulb"></i>
+      </span>
+      <span>{{ subject.meanContentComplexity.toFixed(2)  }}</span>
+    </span>
+    <span class="icon-text">
+      <span class="icon has-text-warning">
+        <i class="fas fa-book"></i>
+      </span>
+      <span>{{ subject.meanMaterialQuality.toFixed(2)  }}</span>
+    </span>
+    <span class="icon-text">
+      <span class="icon has-text-success">
+        <i class="fas fa-graduation-cap"></i>
+      </span>
+      <span>{{ subject.meanProfessorEvaluation.toFixed(2)  }}</span>
+    </span>
+    <span class="icon-text">
+      <span class="icon has-text-link">
+        <i class="fas fa-clock"></i>
+      </span>
+      <span>{{ subject.meanDedicationTime.toFixed(2)  }} hrs/sem</span>
+    </span>
+  </div>
+</div>

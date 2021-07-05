@@ -1,0 +1,26 @@
+.card {
+  margin-top: 20px;
+  border: 1px solid black;
+  box-shadow: none;
+}
+
+.subtitle {
+  margin-bottom: 10px;
+  padding-top: 10px;
+
+  figure {
+    display: inline-block;
+  }
+
+  span {
+    margin-left: 18px;
+    vertical-align: top;
+    height: 32px;
+    line-height: 32px;
+  }
+}
+
+.icon-text {
+  padding-top: 10px;
+  margin-right: 25px;
+}

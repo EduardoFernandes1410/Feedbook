@@ -1,0 +1,77 @@
+<section class="hero is-fullheight">
+  <div class="hero-body">
+    <div class="columns is-vcentered">
+      <section class="hero is-fullheight is-hidden-mobile">
+        <div class="hero-body fill">
+          <img src="../../assets/login/bg.jpg">
+        </div>
+      </section>
+
+      <div class="column is-two-fifths-desktop is-three-fifths-tablet login-form" [formGroup]="registerForm">
+        <h1 class="title is-1">Bem vindo ao Feedbook!</h1>
+
+        <p class="subtitle is-5">
+          <strong>
+            Preencha o formulário abaixo para se cadastrar
+          </strong>
+        </p>
+
+        <!-- Registration Form -->
+        <label class="label">Nome</label>
+        <div class="field is-grouped">
+          <div class="control is-expanded has-icons-left">
+            <input [ngClass]="{'has-error': (name?.dirty || name?.touched) && name?.errors?.required}" formControlName="name" class="input" type="text" placeholder="Nome">
+            <span class="icon is-small is-left">
+              <i class="fas fa-user"></i>
+            </span>
+          </div>
+          <div class="control is-expanded has-icons-left">
+            <input [ngClass]="{'has-error': (surname?.dirty || surname?.touched) && surname?.errors?.required}" formControlName="surname" class="input" type="text" placeholder="Sobrenome">
+            <span class="icon is-small is-left">
+              <i class="fas fa-user"></i>
+            </span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control has-icons-left">
+            <input [ngClass]="{'has-error': (email?.dirty || email?.touched) && (email?.errors?.required || email?.errors?.pattern)}" formControlName="email" class="input" type="email" placeholder="ex: joao@ufmg.br">
+            <span class="icon is-small is-left">
+              <i class="fas fa-envelope"></i>
+            </span>
+          </div><p class="has-text-danger" *ngIf="email?.errors?.pattern">Email cadastrado deve ser da UFMG</p>
+        </div>
+
+        <div class="field">
+          <label class="label">Senha</label>
+          <div class="control has-icons-left">
+            <input [ngClass]="{'has-error': (password?.dirty || password?.touched) && password?.errors?.required}" formControlName="password" class="input" type="password" placeholder="Senha">
+            <span class="icon is-small is-left">
+              <i class="fas fa-lock"></i>
+            </span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Confirme a Senha</label>
+          <div class="control has-icons-left">
+            <input [ngClass]="{'has-error': (passwordConfirmation?.dirty || passwordConfirmation?.touched) && (passwordConfirmation?.errors?.required || passwordConfirmation?.errors?.mustMatch )}" formControlName="passwordConfirmation" class="input" type="password" placeholder="Senha">
+            <span class="icon is-small is-left">
+              <i class="fas fa-lock"></i>
+            </span>
+          </div>
+          <p class="has-text-danger" *ngIf="passwordConfirmation?.errors?.mustMatch">As senhas não conferem</p>
+        </div>
+
+        <div class="field">
+          <p class="control">
+            <button class="button is-info" (click)="register()" [disabled]="!registerForm.valid">
+              Cadastrar
+            </button>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

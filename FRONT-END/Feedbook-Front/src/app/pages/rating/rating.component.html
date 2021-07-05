@@ -1,0 +1,220 @@
+<body class="has-navbar-fixed-top">
+  <app-fb-nav-bar [searchBox]="false" [configButton]="true"></app-fb-nav-bar>
+
+  <div id="rating-form">
+    <div class="columns">
+      <div class="column column is-6-fullhd is-offset-3-fullhd is-8-desktop is-offset-2-desktop is-10-tablet is-offset-1-tablet">
+        <app-mini-course-card *ngIf="subject" [subject]="subject"></app-mini-course-card>
+
+        <!-- Rating Form -->
+        <div id="rating-form-body" [formGroup]="ratingForm">
+          <div class="field is-horizontal is-normal">
+            <div class="field-label">
+              <label class="label">
+                <span class="icon-text">
+                  <span class="icon has-text-primary">
+                    <i class="fas fa-star"></i>
+                  </span>
+                  <span class="has-text-weight-bold">Nota geral:</span>
+                </span>
+              </label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <label class="radio">
+                    <input value="1" type="radio" name="overall-answer" (change)="setOverall($event)">
+                    1
+                  </label>
+                  <label class="radio">
+                    <input value="2" type="radio" name="overall-answer" (change)="setOverall($event)">
+                    2
+                  </label>
+                  <label class="radio">
+                    <input value="3" type="radio" name="overall-answer" (change)="setOverall($event)">
+                    3
+                  </label>
+                  <label class="radio">
+                    <input value="4" type="radio" name="overall-answer" (change)="setOverall($event)">
+                    4
+                  </label>
+                  <label class="radio">
+                    <input value="5" type="radio" name="overall-answer" (change)="setOverall($event)">
+                    5
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-horizontal is-normal">
+            <div class="field-label">
+              <label class="label">
+                <span class="icon-text">
+                  <span class="icon has-text-danger">
+                    <i class="fas fa-lightbulb"></i>
+                  </span>
+                  <span class="has-text-weight-bold">Complexidade do conteúdo:</span>
+                </span>
+              </label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <label class="radio">
+                    <input value="1" type="radio" name="complexity-answer" (change)="setComplexity($event)">
+                    1
+                  </label>
+                  <label class="radio">
+                    <input value="2" type="radio" name="complexity-answer" (change)="setComplexity($event)">
+                    2
+                  </label>
+                  <label class="radio">
+                    <input value="3" type="radio" name="complexity-answer" (change)="setComplexity($event)">
+                    3
+                  </label>
+                  <label class="radio">
+                    <input value="4" type="radio" name="complexity-answer" (change)="setComplexity($event)">
+                    4
+                  </label>
+                  <label class="radio">
+                    <input value="5" type="radio" name="complexity-answer" (change)="setComplexity($event)">
+                    5
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-horizontal is-normal">
+            <div class="field-label">
+              <label class="label">
+                <span class="icon-text">
+                  <span class="icon has-text-warning">
+                    <i class="fas fa-book"></i>
+                  </span>
+                  <span class="has-text-weight-bold">Qualidade do material:</span>
+                </span>
+              </label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <label class="radio">
+                    <input value="1" type="radio" name="quality-answer" (change)="setQuality($event)">
+                    1
+                  </label>
+                  <label class="radio">
+                    <input value="2" type="radio" name="quality-answer" (change)="setQuality($event)">
+                    2
+                  </label>
+                  <label class="radio">
+                    <input value="3" type="radio" name="quality-answer" (change)="setQuality($event)">
+                    3
+                  </label>
+                  <label class="radio">
+                    <input value="4" type="radio" name="quality-answer" (change)="setQuality($event)">
+                    4
+                  </label>
+                  <label class="radio">
+                    <input value="5" type="radio" name="quality-answer" (change)="setQuality($event)">
+                    5
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-horizontal is-normal">
+            <div class="field-label">
+              <label class="label">
+                <span class="icon-text">
+                  <span class="icon has-text-success">
+                    <i class="fas fa-graduation-cap"></i>
+                  </span>
+                  <span class="has-text-weight-bold">Avaliação do docente:</span>
+                </span>
+              </label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <label class="radio">
+                    <input value="1" type="radio" name="professor-answer" (change)="setProfessor($event)">
+                    1
+                  </label>
+                  <label class="radio">
+                    <input value="2" type="radio" name="professor-answer" (change)="setProfessor($event)">
+                    2
+                  </label>
+                  <label class="radio">
+                    <input value="3" type="radio" name="professor-answer" (change)="setProfessor($event)">
+                    3
+                  </label>
+                  <label class="radio">
+                    <input value="4" type="radio" name="professor-answer" (change)="setProfessor($event)">
+                    4
+                  </label>
+                  <label class="radio">
+                    <input value="5" type="radio" name="professor-answer" (change)="setProfessor($event)">
+                    5
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-horizontal is-normal">
+            <div class="field-label">
+              <label class="label">
+                <span class="icon-text">
+                  <span class="icon has-text-info">
+                    <i class="fas fa-clock"></i>
+                  </span>
+                  <span class="has-text-weight-bold">Tempo de dedicação:</span>
+                </span>
+              </label>
+            </div>
+            <div class="field-body">
+              <div class="field has-addons" id="hours-input">
+                <p class="control">
+                  <input class="input" type="number" min="0" formControlName="dedicationTime">
+                </p>
+                <p class="control">
+                  <a class="button is-static">
+                    horas/semana
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Diga o que achou:</label>
+            <div class="control" id="description">
+              <textarea class="textarea" formControlName="desc"></textarea>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <label class="checkbox">
+                <input type="checkbox" formControlName="owner">
+                Desejo avaliar de forma anônima
+              </label>
+            </div>
+          </div>
+
+          <div class="field is-grouped" id="buttons">
+            <div class="control">
+              <button class="button is-info" (click)="evaluate()" [disabled]="!ratingForm.valid" >Avaliar</button>
+            </div>
+            <div class="control">
+              <button class="button is-light" routerLink="../../feed" routerLinkActive="active">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

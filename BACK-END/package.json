@@ -1,0 +1,24 @@
+{
+  "name": "feedbook-backend",
+  "version": "1.0.0",
+  "description": "This is the Node.js npm package corresponding to the backend systems of the Feedbook project.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "backend",
+    "Feedbook"
+  ],
+  "author": "Pedro Dias, Augusto Maillo",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv-safe": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.2.5"
+  }
+}
