@@ -1,3 +1,4 @@
+import { SubjectEffects } from './../../stores/subject/subject.effects';
 import { first } from 'rxjs/operators';
 import { getLoggedUser } from './../../stores/auth/auth.selectors';
 import { UserData } from './../../models/auth';
@@ -9,6 +10,7 @@ import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 import { getSubjectRequested, subjectListRequested } from 'src/app/stores/feed/feed.actions';
 import { SubjectList } from 'src/app/models/feed';
+import { evaluationsRequested } from 'src/app/stores/subject/subject.actions';
 
 @Component({
   selector: 'app-feed',
@@ -21,10 +23,12 @@ export class FeedComponent implements OnInit {
   public visible: boolean = false;
   public subjectList$: Observable<SubjectList>;
   public loggedUser: UserData;
+  public subjectId: number;
 
   constructor(
     private store: Store<AppState>,
     private feedEffects: FeedEffects,
+    private subjectEffects: SubjectEffects,
   ) {}
 
   public searchSubject(text: string){
@@ -35,9 +39,13 @@ export class FeedComponent implements OnInit {
     this.store.dispatch(subjectListRequested({ orderBy: this.orderBy, token: this.loggedUser.token , userId: this.loggedUser.user.id}));
   }
 
-  public seeEvaluations(value: boolean){
+  public seeEvaluations(value: number){
     console.log(value);
+    this.subjectId = value;
     this.visible = true;
+    this.subjectEffects.evaluationVoteCompleted$.subscribe(() => {
+      this.store.dispatch(evaluationsRequested({ userId: this.loggedUser.user.id, subjectId: this.subjectId, token: this.loggedUser.token }));
+    });
   }
 
   public closedEvaluations(value: boolean) {
@@ -51,6 +59,9 @@ export class FeedComponent implements OnInit {
     this.store.dispatch(subjectListRequested({ orderBy: this.orderBy, token: this.loggedUser.token,  userId: this.loggedUser.user.id}));
     this.feedEffects.subjectListCompleted$.subscribe((data) => {
       console.log(data);
+    });
+    this.subjectEffects.evaluationVoteCompleted$.subscribe(() => {
+      this.store.dispatch(evaluationsRequested({ userId: this.loggedUser.user.id, subjectId: this.subjectId, token: this.loggedUser.token }));
     });
   }
 }

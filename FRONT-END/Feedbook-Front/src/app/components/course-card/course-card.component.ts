@@ -16,16 +16,16 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 })
 export class CourseCardComponent implements OnInit {
 
-  @Output() whenSeeEvaluations: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() whenSeeEvaluations: EventEmitter<number> = new EventEmitter<number>();
   @Input() subject: SubjectItem;
   public loggedUser: UserData;
 
   constructor(
     private router: Router,
     private store: Store<AppState>,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
   ) { }
-  
+
   sanitizeImageUrl(imageUrl: string): SafeUrl {
       return this.sanitizer.bypassSecurityTrustUrl("http://" + imageUrl);
   }
@@ -33,7 +33,7 @@ export class CourseCardComponent implements OnInit {
   public async seeEvaluations(){
     this.loggedUser = await this.store.select(getLoggedUser).pipe(first()).toPromise();
     this.store.dispatch(evaluationsRequested({ userId: this.loggedUser.user.id, subjectId: this.subject.subjectId, token: this.loggedUser.token }));
-    this.whenSeeEvaluations.emit(true);
+    this.whenSeeEvaluations.emit(this.subject.subjectId);
   }
 
   public goToEvaluation(){
@@ -45,6 +45,6 @@ export class CourseCardComponent implements OnInit {
   }
 
 
-  
+
 
 }

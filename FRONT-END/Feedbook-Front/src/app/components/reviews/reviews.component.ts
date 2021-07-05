@@ -1,4 +1,5 @@
-import { evaluationVoteRequested } from './../../stores/subject/subject.actions';
+import { SubjectEffects } from './../../stores/subject/subject.effects';
+import { evaluationsRequested, evaluationVoteRequested } from './../../stores/subject/subject.actions';
 import { first } from 'rxjs/operators';
 import { getLoggedUser } from './../../stores/auth/auth.selectors';
 import { UserData } from './../../models/auth';
@@ -31,20 +32,20 @@ export class ReviewsComponent implements OnInit, OnDestroy {
   }
 
   public upVote(item: EvaluationData){
-    if(item.evaluationUpvoted ) { 
+    if(item.evaluationUpvoted ) {
       this.store.dispatch(evaluationVoteRequested({ userId: this.loggedUser.user.id, evaluationId: item.evaluationId, voteType: 0, token: this.loggedUser.token }));
       // item.evaluationUpvoteCount--;
-      return; 
+      return;
     }
     this.store.dispatch(evaluationVoteRequested({ userId: this.loggedUser.user.id, evaluationId: item.evaluationId, voteType: 1, token: this.loggedUser.token }));
     // item.evaluationUpvoteCount++;
   }
 
   public downVote(item: EvaluationData){
-    if(item.evaluationDownvoted) { 
+    if(item.evaluationDownvoted) {
       // item.evaluationDownvoteCount--;
       this.store.dispatch(evaluationVoteRequested({ userId: this.loggedUser.user.id, evaluationId: item.evaluationId, voteType: 0, token: this.loggedUser.token }));
-      return; 
+      return;
     }
     this.store.dispatch(evaluationVoteRequested({ userId: this.loggedUser.user.id, evaluationId: item.evaluationId, voteType: -1, token: this.loggedUser.token }));
     // item.evaluationDownvoteCount++;
