@@ -25,7 +25,7 @@ Sistema digital para feedback das disciplinas ofertadas pelo DCC-UFMG.
 - NodeJS
 - Angular
 
-## Features:
+## Funcionalidades:
 - Diferenciação de disciplinas obrigatórias e opcionais;
 - Possibilidade de avaliações anônimas;
 - Up/down vote nas avaliações públicas;
@@ -38,6 +38,7 @@ Sistema digital para feedback das disciplinas ofertadas pelo DCC-UFMG.
 - Como usuário, eu gostaria de ver a lista de todas as disciplinas, ordenado por algum critério
 - Como usuário, eu gostaria de ver todas as avaliações de uma disciplina
 - Como usuário, eu gostaria de dar upvote/downvote em alguma avaliação
+- Diferenciação de disciplinas obrigatórias e opcionais;
 
 ## Backlog do sprint - 02/06
 - Como usuário, eu gostaria de me cadastrar/entrar na plataforma
