@@ -18,7 +18,7 @@
       </span>
       <span>
         <span class="has-text-weight-bold">Nota geral:</span>
-        {{ subject.meanGeneral }}
+        {{ subject.meanGeneral.toFixed(2) }}
       </span>
     </span>
     <span class="icon-text">
@@ -27,7 +27,7 @@
       </span>
       <span>
         <span class="has-text-weight-bold">Complexidade do conteúdo:</span>
-        {{ subject.meanContentComplexity }}
+        {{ subject.meanContentComplexity.toFixed(2)  }}
       </span>
     </span>
     <span class="icon-text">
@@ -36,7 +36,7 @@
       </span>
       <span>
         <span class="has-text-weight-bold">Qualidade do material:</span>
-        {{ subject.meanMaterialQuality }}
+        {{ subject.meanMaterialQuality.toFixed(2)  }}
       </span>
     </span>
     <span class="icon-text">
@@ -45,7 +45,7 @@
       </span>
       <span>
         <span class="has-text-weight-bold">Avaliação do docente:</span>
-        {{ subject.meanProfessorEvaluation }}
+        {{ subject.meanProfessorEvaluation.toFixed(2)  }}
       </span>
     </span>
     <span class="icon-text">
@@ -54,7 +54,7 @@
       </span>
       <span>
         <span class="has-text-weight-bold">Tempo de dedicação:</span>
-        {{ subject.meanDedicationTime }} hrs/sem
+        {{ subject.meanDedicationTime.toFixed(2)  }} hrs/sem
       </span>
     </span>
   </div>
