@@ -256,7 +256,8 @@ function registerEndpoints(app, dbController, authController) {
                     "meanGeneral": e.mean_general,
                     "subjectCod": e.cod,
                     "subjectName": e.name,
-                    "evaluationsCount": e.evaluations_count
+                    "evaluationsCount": e.evaluations_count,
+                    "userEvaluatedSubject": await Subject.checkEvaluatedByUser(dbController, reqData.userId, e.id)
                 });
             };
 
