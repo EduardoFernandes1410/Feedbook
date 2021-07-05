@@ -86,6 +86,11 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(AuthActions.authActionTypes.userUpdateCompleted),
+        tap(async () => {
+          this.ngZone.run(() => {
+            this.router.navigate(['/feed']);
+          });
+        }),
       ),
     { dispatch: false },
   );
