@@ -40,13 +40,8 @@ export class AuthService {
   }
 
   public async logout(): Promise<void> {
-    this.ngZone.run(() => {
-      this.ngZone.runOutsideAngular(() => {
-        localStorage.clear();
-        this.router.navigate(['login']);
-      });
-    });
-
+    localStorage.clear();
+    this.router.navigate(['login']);
   }
 
 }
