@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "test": "npx eslint Models",
-    "precommmit": "test"
+    "precommmit": "npm test"
   },
   "keywords": [
     "backend",
