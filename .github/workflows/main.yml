@@ -27,4 +27,4 @@ jobs:
           cd FRONT-END
           cd Feedbook-Front
           npm i
-          npm run build:prod
+          npm run build
