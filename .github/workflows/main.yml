@@ -25,7 +25,6 @@ jobs:
 
       - name: npm install and npm run build
         run: |
-          cd FRONT-END
           cd Feedbook-Front
           npm i
           npm run build
